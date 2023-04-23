@@ -26,16 +26,17 @@ provider:
       roleManagedExternally: false
 
 plugins:
+  - serverless-esbuild
   - serverless-offline-ssm
   - serverless-offline
 
 functions:
-  helloTest:
-    handler: src/controllers/test/hello.handler
-    description: Function in charge of checking ssm variables 
+ databaseTestConnection:
+    handler: src/controllers/db/connection.handler
+    description: Function in charge of checking the connection to the db
     events:
       - http:
-          path: /test
+          path: /db-connection
           method: get
           private: true
  

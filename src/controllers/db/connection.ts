@@ -1,13 +1,19 @@
 //dbConfig
-const { dbConnection } = require('../../db/localConfig');
+const { dbConnection } = require('../../db/config');
 //Enums
 const { statusCode } = require('../../enums/http/statusCode');
 //Helpers
 const { requestResult } = require('../../helpers/http/bodyResponse');
+//Const/Vars
+let msg;
+let code;
+
 
 module.exports.handler = async (event) => {
 
   try {
+    msg = null;
+    code = null;
 
     //-- start with db query  ---
     await dbConnection.authenticate()
