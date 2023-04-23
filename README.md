@@ -1,7 +1,7 @@
 # Microservice_Mercadolibre_Products_AWS
 Microservicio para la gestión de productos, replicando y modificando parte de la arquitectura de desarrollo de ML implementada con Typescript, Amazon S3, Systems Manager Parameter Store, Api-Gateway, Serverless-Framework, Lambda, Sequelize, Mysql, Amazon RDS, entre otros. Los servicios de aws se prueban en local. El código del proyecto y la documentación de este (menos doc técnica), ha sido desarrollado/a en inglés.
-* [Repositorio base de datos](https://github.com/andresWeitzel/Microdb_MercadoLibre_Mysql)
-* [Api Doc ML Usuarios](https://developers.mercadolibre.com.ar/es_ar/usuarios-y-aplicaciones)
+* [Repositorio base de datos](https://github.com/andresWeitzel/Microdb_MercadoLibre_Productos_Mysql)
+* [Api Doc ML Productos](https://developers.mercadolibre.com.ar/es_ar/publica-productos)
 * [Playlist prueba de funcionalidad](https://www.youtube.com/watch?v=oLSrmqMq0Zs&list=PLCl11UFjHurB9JzGtm5e8-yp52IcZDs5y)
 
 
@@ -88,6 +88,35 @@ sls -v
 ```git
 npm i
 ``` 
+* Creamos un archivo para almacenar las variables ssm utilizadas en el proyecto (Más allá que sea un proyecto con fines no comerciales es una buena práctica utilizar variables de entorno).
+  * Click der sobre la raíz del proyecto
+  * New file
+  * Creamos el archivo con el name `serverless_ssm.yml`. Este deberá estar a la misma altura que el serverless.yml
+  * Añadimos las ssm necesarias dentro del archivo.
+  ```git
+    # Keys
+    X_API_KEY : 'f98d8cd98h73s204e3456998ecl9427j'
+
+    BEARER_TOKEN : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+
+    # Database
+    DATABASE_NAME : 'microdb_mercadolibre_productos'
+    DATABASE_USER : 'root'
+    DATABASE_PASSWORD : ''
+    DATABASE_HOST : 'localhost'
+    DATABASE_DIALECT : 'mysql'
+    DATABASE_POOL_MAX : 5
+    DATABASE_POOL_MIN : 0
+    DATABASE_POOL_ACQUIRE : 30000
+    DATABASE_POOL_IDLE : 10000
+
+  ```  
+* Ejecutamos el proyecto
+```git
+sls offline start
+```
+ 
+
  
 <br>
 
@@ -127,7 +156,19 @@ serverless create --template aws-nodejs-typescript
 ```git
 npm i
 ```
-
+* Para este caso vamos a utilizar la manera tradicional de configuración para los archivos del proyecto. (serverless.yml, src/helpers, src/resources, src/controllers, src/services , etc). Por ende se modifican los archivos de la plantilla base.
+* Instalamos serverless offline 
+```git
+npm i serverless-offline --save-dev
+```
+* Instalamos serverless ssm 
+```git
+npm i serverless-offline-ssm --save-dev
+```
+* Ejecutamos el proyecto
+```git
+sls offline start
+```
 
 
 <br>
@@ -237,7 +278,11 @@ npm i
 
 #### Configuración
  * [Configuración de Typescript y Serverless](https://blog.logrocket.com/building-serverless-app-typescript/)
- 
+
+#### Ejemplos proyectos typescript/serverless
+* [Serverless Framework AWS TypeScript Example](https://github.com/serverless/examples/tree/v3/aws-node-typescript) 
+* [Apollo Lambda GraphQL API Example](https://github.com/serverless/examples/tree/v3/aws-node-typescript-apollo-lambda) 
+
 #### Herramientas 
  * [Herramienta de Diseño AWS app.diagrams.net](https://app.diagrams.net/?splash=0&libs=aws4)
 
