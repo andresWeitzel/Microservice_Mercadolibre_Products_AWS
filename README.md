@@ -165,6 +165,29 @@ npm i serverless-offline --save-dev
 ```git
 npm i serverless-offline-ssm --save-dev
 ```
+* Instalamos sequelize
+```git
+npm install sequelize  --save
+```
+* Instalamos los plugins necesarios para el [uso de sequelize con ts junto a nodejs](https://sequelize.org/docs/v6/other-topics/typescript/) según la doc oficial. [Doc de los siguientes plugins](https://www.npmjs.com/package/sequelize-typescript)
+```git
+npm install --save-dev @types/node @types/validator
+npm install sequelize reflect-metadata sequelize-typescript
+```
+* Luego agregamos la configuración en `tsconfig.json`, dentro de `compilerOptions`. Si existe un target eliminar uno.
+```git
+"target": "es6", // or a more recent ecmascript version
+"experimentalDecorators": true,
+"emitDecoratorMetadata": true
+```
+* Instalamos `mysql2` para usar el sgdb mysql
+```git
+npm i mysql2 --save
+```
+* Usando ts se ha presantado problemas al intentar importar un módulo de conexión de postgres por parte de nodejs, más allá que nunca se usa. Instalamos el módulo de forma manual
+```git
+npm i pg-hstore --save
+```
 * Ejecutamos el proyecto
 ```git
 sls offline start
@@ -281,7 +304,10 @@ sls offline start
 
 #### Ejemplos proyectos typescript/serverless
 * [Serverless Framework AWS TypeScript Example](https://github.com/serverless/examples/tree/v3/aws-node-typescript) 
-* [Apollo Lambda GraphQL API Example](https://github.com/serverless/examples/tree/v3/aws-node-typescript-apollo-lambda) 
+* [Apollo Lambda GraphQL API Example](https://github.com/serverless/examples/tree/v3/aws-node-typescript-apollo-lambda)
+
+## Ejemplos proyectos typescript/serverless/sequelize
+* [Proyecto sequelize](https://javascript.plainenglish.io/how-to-use-sequelize-v6-orm-lambda-with-typescript-2dfc56dee6a1)
 
 #### Herramientas 
  * [Herramienta de Diseño AWS app.diagrams.net](https://app.diagrams.net/?splash=0&libs=aws4)

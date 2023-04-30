@@ -34,7 +34,7 @@ module.exports.handler = async (event) => {
     //-- end with db query  ---
 
   } catch (error) {
-    console.log(error);
+    console.error(`Error in db connection lambda, caused by ${error}. Stack error type : ${error.stack}`);
   }
 
 
