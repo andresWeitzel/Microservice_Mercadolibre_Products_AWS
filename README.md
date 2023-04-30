@@ -165,6 +165,14 @@ npm i serverless-offline --save-dev
 ```git
 npm i serverless-offline-ssm --save-dev
 ```
+* Agregamos los plugins de serverless al .yml
+```git
+plugins:
+  - serverless-esbuild
+  - serverless-offline-ssm
+  - serverless-offline
+
+```
 * Instalamos sequelize
 ```git
 npm install sequelize  --save
@@ -184,7 +192,7 @@ npm install sequelize reflect-metadata sequelize-typescript
 ```git
 npm i mysql2 --save
 ```
-* Usando ts se ha presantado problemas al intentar importar un módulo de conexión de postgres por parte de nodejs, más allá que nunca se usa. Instalamos el módulo de forma manual
+* Usando ts se ha presentado problemas al intentar importar un módulo de conexión de postgres por parte de nodejs, más allá que nunca se usa. Instalamos el módulo de forma manual
 ```git
 npm i pg-hstore --save
 ```

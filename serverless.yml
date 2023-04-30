@@ -27,7 +27,6 @@ provider:
 
 plugins:
   - serverless-esbuild
-  - serverless-plugin-typescript
   - serverless-offline-ssm
   - serverless-offline
 
