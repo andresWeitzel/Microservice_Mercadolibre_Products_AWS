@@ -36,9 +36,17 @@ functions:
     description: Function in charge of checking the connection to the db
     events:
       - http:
-          path: /db-connection
+          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_NAME}/db-connection
           method: get
           private: true
+ addProduct:
+    handler: src/controllers/products/addProduct.handler
+    description: lambda function to add a product to the database
+    events:
+      - http:
+          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_NAME}/add-product
+          method: post
+          private: true          
  
 resources:
   - ${file(src/resources/api-gateway.yml)}

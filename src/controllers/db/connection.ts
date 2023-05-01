@@ -18,13 +18,12 @@ module.exports.handler = async (event) => {
     //-- start with db query  ---
     await dbConnection.authenticate()
       .then(() => {
-        msg = 'Connection has been established successfully.';
+        msg = 'Database connection has been established successfully.';
         code = statusCode.OK;
-
         console.log(msg);
 
       }).catch((error) => {
-        msg = 'Unable to connect to the database: ', JSON.stringify(error);
+        msg = `Unable to connect to the database. caused by ${error}`;
         code = statusCode.INTERNAL_SERVER_ERROR;
         console.log(error);
 

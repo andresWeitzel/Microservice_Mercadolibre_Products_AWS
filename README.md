@@ -96,20 +96,22 @@ npm i
   ```git
     # Keys
     X_API_KEY : 'f98d8cd98h73s204e3456998ecl9427j'
-
     BEARER_TOKEN : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+
+    # API VALUES
+    API_VERSION : 'v1'
+    API_ENDPOINT_NAME : 'products'
 
     # Database
     DATABASE_NAME : 'microdb_mercadolibre_productos'
     DATABASE_USER : 'root'
     DATABASE_PASSWORD : ''
-    DATABASE_HOST : 'localhost'
+    DATABASE_HOST : '127.0.0.1'
     DATABASE_DIALECT : 'mysql'
     DATABASE_POOL_MAX : 5
     DATABASE_POOL_MIN : 0
     DATABASE_POOL_ACQUIRE : 30000
     DATABASE_POOL_IDLE : 10000
-
   ```  
 * Ejecutamos el proyecto
 ```git
@@ -246,6 +248,7 @@ sls offline start
 | -------------  | 
 | Prettier - Code formatter |
 | YAML - Autoformatter .yml |
+| Typescript Toolbox - generate setters, getters, constrc, etc |
 
 <br>
 
