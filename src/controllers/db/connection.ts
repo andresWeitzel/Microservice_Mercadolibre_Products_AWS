@@ -1,16 +1,18 @@
-//dbConfig
-const { dbConnection } = require('../../db/config');
 //Enums
-const { statusCode } = require('../../enums/http/statusCode');
+import { statusCode } from "src/enums/http/statusCode";
 //Helpers
-const { requestResult } = require('../../helpers/http/bodyResponse');
+import { dbConnection } from "src/db/config";
+import { requestResult } from "src/helpers/http/bodyResponse";
 //Const/Vars
 let msg;
 let code;
 
-
-module.exports.handler = async (event) => {
-
+/**
+ * @description check database connection
+ * @param {any} event any type
+ * @returns a json object with the message and the authentication code from the database
+ */
+module.exports.handler = async (event:any) => {
   try {
     msg = null;
     code = null;
@@ -29,7 +31,7 @@ module.exports.handler = async (event) => {
 
       });
 
-    return await requestResult(code, msg, event);
+    return await requestResult(code, msg);
     //-- end with db query  ---
 
   } catch (error) {

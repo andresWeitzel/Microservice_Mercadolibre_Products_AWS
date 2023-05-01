@@ -15,7 +15,7 @@ export class Product {
     private creationDate: Date;
     private updateDate: Date
 
-    //Constructs
+    //Constructor
     constructor($id: number, $siteId: string, $title: string, $subtitle: string, $sellerId: number, $categoryId: string, $officialStoreId: string, $price: number, $basePrice: number, $originalPrice: number, $initialQuantity: number, $availableQuantity: number, $creationDate: Date) {
 		this.id = $id;
 		this.siteId = $siteId;
