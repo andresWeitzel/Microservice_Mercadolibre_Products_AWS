@@ -1,13 +1,14 @@
+
 //External
-const { DataTypes } = require('sequelize');
+import { DataTypes } from "sequelize";
 //DB
-const { config } = require('../db/config');
+import { dbConnection } from "src/db/config";
 
 
 /**
  * @description database product model with their respective fields and constraints
  */
-export const Product = config.define("product", {
+export const ProductSequelize = dbConnection.define("products", {
     id: {
         type: DataTypes.INTEGER
         , allowNull: true
@@ -26,7 +27,7 @@ export const Product = config.define("product", {
         , allowNull: true
     },
     seller_id: {
-        type: DataTypes.INTEGER(20)
+        type: DataTypes.INTEGER
         , allowNull: false
     },
     category_id: {

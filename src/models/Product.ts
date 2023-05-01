@@ -1,6 +1,5 @@
 export class Product {
     //Fields
-    private id: number;
     private siteId: string;
     private title: string;
     private subtitle: string;
@@ -16,8 +15,7 @@ export class Product {
     private updateDate: Date
 
     //Constructor
-    constructor($id: number, $siteId: string, $title: string, $subtitle: string, $sellerId: number, $categoryId: string, $officialStoreId: string, $price: number, $basePrice: number, $originalPrice: number, $initialQuantity: number, $availableQuantity: number, $creationDate: Date) {
-		this.id = $id;
+    constructor($siteId: string, $title: string, $subtitle: string, $sellerId: number, $categoryId: string, $officialStoreId: string, $price: number, $basePrice: number, $originalPrice: number, $initialQuantity: number, $availableQuantity: number, $creationDate: Date, $updateDate: Date) {
 		this.siteId = $siteId;
 		this.title = $title;
 		this.subtitle = $subtitle;
@@ -30,16 +28,9 @@ export class Product {
 		this.initialQuantity = $initialQuantity;
 		this.availableQuantity = $availableQuantity;
 		this.creationDate = $creationDate;
+        this.updateDate = $updateDate;
 	}
     //Setters and getters
-    public getId(): number {
-        return this.id;
-    }
-
-    public setId(id: number): void {
-        this.id = id;
-    }
-
     public getSiteId(): string {
         return this.siteId;
     }

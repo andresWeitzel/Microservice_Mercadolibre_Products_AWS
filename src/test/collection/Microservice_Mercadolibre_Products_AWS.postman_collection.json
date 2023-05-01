@@ -41,13 +41,63 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{base_url}}/dev/db-connection",
+							"raw": "{{base_url}}/dev/v1/products/db-connection",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"dev",
+								"v1",
+								"products",
 								"db-connection"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "POST",
+			"item": [
+				{
+					"name": "add-product",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{bearer_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{x-api-key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"site_id\" : \"qwwd\",\r\n        \"title\" : \"eventBody.title\",\r\n        \"subtitle\" : \"eventBody.subtitle\",\r\n        \"seller-id\" : \"eventBody.seller_id\",\r\n        \"category_id\" : \"eventBody.category_id\",\r\n        \"official_store_id\" : \"eventBody.official_store_id\",\r\n        \"price\" : \"eventBody.price\",\r\n        \"base_price\" : \"eventBody.base_price\",\r\n        \"original_price\" : \"eventBody.original_price\",\r\n        \"initial_quantity\" : \"eventBody.initial_quantity\",\r\n        \"available_quantity\" : \"eventBody.availableQuantity\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/dev/v1/products/add-product",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"dev",
+								"v1",
+								"products",
+								"add-product"
 							]
 						}
 					},

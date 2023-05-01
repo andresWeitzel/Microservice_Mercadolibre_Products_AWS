@@ -1,14 +1,12 @@
 
 //Models
-import { Product } from "src/models/ProductSequelize";
+import { Product } from "src/models/Product";
+import { ProductSequelize } from "src/models/ProductSequelize";
 //Enums
-const {statusName} = require('../../enums/connection/statusName');
-//Helpers
-const { currentDateTime } = require('../../helpers/dates/date');
+import { statusName } from "src/enums/connection/statusName";
 //Const/Vars
 let product;
 let msg;
-let dateNow;
 
 
 /**
@@ -18,24 +16,27 @@ let dateNow;
  * @example
  * 
  */
-export const addProduct = async function (inputProduct:object) {
+export const addProduct = async function (inputProduct:Product) {
     try {
         product = null;
         msg = null;
-        dateNow = await currentDateTime();
-
+ 
         if (Product != null) {
-        await Product.create(
+        await ProductSequelize.create(
             {
-                nickname: nickname,
-                first_name: firstName,
-                last_name: lastName,
-                email: email,
-                identification_type: identificationType,
-                identification_number: identificationNumber,
-                country_id: countryId,
-                creation_date: dateNow,
-                update_date: dateNow,
+                site_id: inputProduct.getSiteId(),
+                title: inputProduct.getTitle(),
+                subtitle: inputProduct.getSubtitle(),
+                seller_id: inputProduct.getSellerId(),
+                category_id: inputProduct.getCategoryId(),
+                official_store_id: inputProduct.getOfficialStoreId(),
+                price : inputProduct.getPrice(),
+                base_price : inputProduct.getBasePrice(),
+                original_price : inputProduct.getBasePrice(),
+                initial_quantity : inputProduct.getInitialQuantity(),
+                available_quantity : inputProduct.getInitialQuantity(),
+                creation_date : inputProduct.getCreationDate(),
+                update_date : inputProduct.getUpdateDate()
             },
         )
             .then(productItem => {
@@ -49,7 +50,7 @@ export const addProduct = async function (inputProduct:object) {
             product = statusName.CONNECTION_REFUSED;
           }
     } catch (error) {
-        msg = `Error in addproduct function. Caused by ${error}`;
+        msg = `Error in addProduct function. Caused by ${error}`;
         console.error(`${msg}. Stack error type : ${error.stack}`);
         product = statusName.CONNECTION_ERROR;
     }
