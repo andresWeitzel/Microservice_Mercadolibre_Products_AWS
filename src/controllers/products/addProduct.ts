@@ -78,7 +78,7 @@ module.exports.handler = async (event:any) => {
 
         // //-- start with validation Body  ---
 
-        // eventBody = JSON.parse(await event.body);
+         eventBody = JSON.parse(await event.body);
 
         // validateReqBodyParams = await validateBodyAddUserParams(eventBody);
 
