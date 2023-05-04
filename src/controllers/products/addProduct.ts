@@ -8,14 +8,9 @@ import { statusCode } from "src/enums/http/statusCode";
 //Helpers
 import { requestResult } from "src/helpers/http/bodyResponse";
 import { currentDateTime } from "src/helpers/dateTime/dates";
-// const {
-//   validateHeadersParams,
-// } = require("../../helpers/http/requestHeadersParams");
-// const {
-//   validateBodyAddUserParams,
-// } = require("../../helpers/http/users/requestBodyAddUserParams");
-// const { validateAuthHeaders } = require("../../helpers/auth/headers");
-
+import { validateAuthHeaders } from "src/helpers/auth/headers";
+import { validateHeadersParams } from "src/helpers/http/requestHeadersParams";
+import { validateBodyAddProductParams } from "src/helpers/http/products/requestBodyAddProductParams";
 
 //Const/Vars
 let newUser;
@@ -52,44 +47,41 @@ module.exports.handler = async (event:any) => {
         //Init
         newUser = null;
 
-        // //-- start with validation Headers  ---
-        // eventHeaders = await event.headers;
+        //-- start with validation Headers  ---
+        eventHeaders = await event.headers;
 
-        // validateReqParams = await validateHeadersParams(eventHeaders);
+        validateReqParams = await validateHeadersParams(eventHeaders);
 
-        // if (!validateReqParams) {
-        //   return await requestResult(
-        //     statusCode.BAD_REQUEST,
-        //     "Bad request, check missing or malformed headers",
-        //     event
-        //   );
-        // }
+        if (!validateReqParams) {
+          return await requestResult(
+            statusCode.BAD_REQUEST,
+            "Bad request, check missing or malformed headers"
+          );
+        }
 
-        // validateAuth = await validateAuthHeaders(eventHeaders);
+        validateAuth = await validateAuthHeaders(eventHeaders);
 
-        // if (!validateAuth) {
-        //   return await requestResult(
-        //     statusCode.UNAUTHORIZED,
-        //     "Not authenticated, check x_api_key and Authorization",
-        //     event
-        //   );
-        // }
-        // //-- end with validation Headers  ---
+        if (!validateAuth) {
+          return await requestResult(
+            statusCode.UNAUTHORIZED,
+            "Not authenticated, check x_api_key and Authorization"
+          );
+        }
+        //-- end with validation Headers  ---
 
-        // //-- start with validation Body  ---
+        //-- start with validation Body  ---
 
          eventBody = JSON.parse(await event.body);
 
-        // validateReqBodyParams = await validateBodyAddUserParams(eventBody);
+        validateReqBodyParams = await validateBodyAddProductParams(eventBody);
 
-        // if (!validateReqBodyParams) {
-        //   return await requestResult(
-        //     statusCode.BAD_REQUEST,
-        //     "Bad request, check request attributes. Missing or incorrect",
-        //     event
-        //   );
-        // }
-        // //-- end with validation Body  ---
+        if (!validateReqBodyParams) {
+          return await requestResult(
+            statusCode.BAD_REQUEST,
+            "Bad request, check request attributes. Missing or incorrect"
+          );
+        }
+        //-- end with validation Body  ---
 
         //-- start with db query  ---
 

@@ -11,7 +11,7 @@ let eventHeadersObj;
  * @returns a boolean
  * @example Content-Type, Authorization, etc
  */
-const validateHeadersParams = async (eventHeaders) => {
+export const validateHeadersParams = async (eventHeaders:any) => {
   eventHeadersObj = null;
   validatorObj= null;
   validateCheck = false;
@@ -46,6 +46,3 @@ const validateHeadersParams = async (eventHeaders) => {
   return validateCheck;
 }
 
-module.exports = {
-  validateHeadersParams
-}
