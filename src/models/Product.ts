@@ -12,8 +12,16 @@ export class Product {
     @IsString({message: 'The site id must be of type string'})
     @Length(2, 20, {message: 'The value of the site id must be between 2 and 20 characters'})
     private siteId: string;
+
+    @IsNotEmpty({message: 'The title cannot be empty'})
+    @IsString({message: 'The title must be of type string'})
+    @Length(2, 100, {message: 'The value of the title must be between 2 and 100 characters'})
     private title: string;
+
+    @IsString({message: 'The subtitle must be of type string'})
+    @Length(2, 100, {message: 'The value of the subtitle must be between 2 and 100 characters'})
     private subtitle: string;
+    
     private sellerId: number;
     private categoryId: string;
     private officialStoreId: string;

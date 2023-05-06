@@ -47,7 +47,7 @@ module.exports.handler = async (event: any) => {
     try {
         //Init
         newUser = null;
-        validateObject = null;
+        validateObject = [];
 
         //-- start with validation Headers  ---
         eventHeaders = await event.headers;
@@ -99,10 +99,10 @@ module.exports.handler = async (event: any) => {
 
         validateObject = await validateProductObject(newProduct);
 
-        if (!validateObject) {
+        if (validateObject.length) {
             return await requestResult(
                 statusCode.BAD_REQUEST,
-                "Bad request, check request attributes. Missing or incorrect"
+                `Bad request, check request attributes. Validate the following : ${validateObject}`
             );
         }
         //-- end with validation Body  ---
