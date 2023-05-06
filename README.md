@@ -332,6 +332,7 @@ sls offline start
 
  #### Librerías
  * [Validación de campos](https://www.npmjs.com/package/node-input-validator)
+  * [Validación de propiedades de clases](https://www.npmjs.com/package/class-validator)
 
 <br>
 

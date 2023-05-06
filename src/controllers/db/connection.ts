@@ -3,9 +3,14 @@ import { statusCode } from "src/enums/http/statusCode";
 //Helpers
 import { dbConnection } from "src/db/config";
 import { requestResult } from "src/helpers/http/bodyResponse";
+import { validateHeadersParams } from "src/helpers/validations/validator/http/requestHeadersParams";
+import { validateAuthHeaders } from "src/helpers/validations/validator/auth/headers";
 //Const/Vars
 let msg;
 let code;
+let eventHeaders;
+let validateReqParams;
+let validateAuth;
 
 /**
  * @description check database connection
@@ -16,6 +21,32 @@ module.exports.handler = async (event:any) => {
   try {
     msg = null;
     code = null;
+    eventHeaders=null;
+    validateReqParams=null;
+    validateAuth=null;
+
+
+       //-- start with validation Headers  ---
+       eventHeaders = await event.headers;
+
+       validateReqParams = await validateHeadersParams(eventHeaders);
+
+       if (!validateReqParams) {
+         return await requestResult(
+           statusCode.BAD_REQUEST,
+           "Bad request, check missing or malformed headers"
+         );
+       }
+
+       validateAuth = await validateAuthHeaders(eventHeaders);
+
+       if (!validateAuth) {
+         return await requestResult(
+           statusCode.UNAUTHORIZED,
+           "Not authenticated, check x_api_key and Authorization"
+         );
+       }
+       //-- end with validation Headers  ---
 
     //-- start with db query  ---
     await dbConnection.authenticate()

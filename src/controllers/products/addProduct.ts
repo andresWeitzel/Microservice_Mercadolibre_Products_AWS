@@ -8,9 +8,9 @@ import { statusCode } from "src/enums/http/statusCode";
 //Helpers
 import { requestResult } from "src/helpers/http/bodyResponse";
 import { currentDateTime } from "src/helpers/dateTime/dates";
-import { validateAuthHeaders } from "src/helpers/auth/headers";
-import { validateHeadersParams } from "src/helpers/http/requestHeadersParams";
-import { validateBodyAddProductParams } from "src/helpers/http/products/requestBodyAddProductParams";
+import { validateAuthHeaders } from "src/helpers/validations/validator/auth/headers";
+import { validateHeadersParams } from "src/helpers/validations/validator/http/requestHeadersParams";
+
 
 //Const/Vars
 let newUser;
@@ -71,16 +71,16 @@ module.exports.handler = async (event:any) => {
 
         //-- start with validation Body  ---
 
-         eventBody = JSON.parse(await event.body);
+        eventBody = JSON.parse(await event.body);
 
-        validateReqBodyParams = await validateBodyAddProductParams(eventBody);
+        // validateReqBodyParams = await validateBodyAddProductParams(eventBody);
 
-        if (!validateReqBodyParams) {
-          return await requestResult(
-            statusCode.BAD_REQUEST,
-            "Bad request, check request attributes. Missing or incorrect"
-          );
-        }
+        // if (!validateReqBodyParams) {
+        //   return await requestResult(
+        //     statusCode.BAD_REQUEST,
+        //     "Bad request, check request attributes. Missing or incorrect"
+        //   );
+        // }
         //-- end with validation Body  ---
 
         //-- start with db query  ---

@@ -1,5 +1,16 @@
+//External
+import {
+    IsNotEmpty,
+    IsString,
+    Length
+  } from 'class-validator';
+
+
 export class Product {
     //Fields
+    @IsNotEmpty({message: 'The site id cannot be empty'})
+    @IsString({message: 'The site id must be of type string'})
+    @Length(2, 20, {message: 'The value of the site id must be between 2 and 20 characters'})
     private siteId: string;
     private title: string;
     private subtitle: string;
