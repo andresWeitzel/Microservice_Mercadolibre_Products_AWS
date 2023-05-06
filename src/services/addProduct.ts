@@ -45,6 +45,7 @@ export const addProduct = async function (inputProduct:Product) {
             .catch(error => {
                 msg = `Error in create product model. Caused by ${error}`;
                 console.error(`${msg}. Stack error type : ${error.stack}`);
+                product = statusName.CONNECTION_REFUSED;
             })
         } else {
             product = statusName.CONNECTION_REFUSED;

@@ -1,8 +1,12 @@
 //External
 import {
+    IsInt,
     IsNotEmpty,
+    IsNumber,
     IsString,
-    Length
+    Length,
+    Max,
+    Min
   } from 'class-validator';
 
 
@@ -15,21 +19,58 @@ export class Product {
 
     @IsNotEmpty({message: 'The title cannot be empty'})
     @IsString({message: 'The title must be of type string'})
-    @Length(2, 100, {message: 'The value of the title must be between 2 and 100 characters'})
+    @Length(2, 400, {message: 'The value of the title must be between 2 and 400 characters'})
     private title: string;
 
     @IsString({message: 'The subtitle must be of type string'})
-    @Length(2, 100, {message: 'The value of the subtitle must be between 2 and 100 characters'})
+    @Length(2, 500, {message: 'The value of the subtitle must be between 2 and 500 characters'})
     private subtitle: string;
     
+    @IsNotEmpty({message: 'The seller id cannot be empty'})
+    @IsInt({message: 'The seller id must be of type integer'})
+    @Length(2, 20, {message: 'The value of the seller id must be between 2 and 20 numbers'})
     private sellerId: number;
+
+    @IsNotEmpty({message: 'The category id cannot be empty'})
+    @IsString({message: 'The category id must be of type string'})
+    @Length(2, 100, {message: 'The value of the category id must be between 2 and 100 characters'})
     private categoryId: string;
+
+    @IsString({message: 'The official store id must be of type string'})
+    @Length(2, 100, {message: 'The value of the official store id must be between 2 and 100 characters'})
     private officialStoreId: string;
+
+    @IsNotEmpty({message: 'The price cannot be empty'})
+    @IsNumber({allowInfinity: false, allowNaN: false,maxDecimalPlaces: 3},{message: 'The price must be of type number(decimal) and contain only three decimal places after the separator'})
+    @Min(200.000)
+    @Max(999999999.999)
     private price: number;
+
+    @IsNotEmpty({message: 'The base price cannot be empty'})
+    @IsNumber({allowInfinity: false, allowNaN: false,maxDecimalPlaces: 3},{message: 'The base price must be of type number(decimal) and contain only three decimal places after the separator'})
+    @Min(200.000)
+    @Max(999999999.999)
     private basePrice: number;
+
+    @IsNotEmpty({message: 'The original price cannot be empty'})
+    @IsNumber({allowInfinity: false, allowNaN: false,maxDecimalPlaces: 3},{message: 'The original price must be of type number(decimal) and contain only three decimal places after the separator'})
+    @Min(200.000)
+    @Max(999999999.999)
     private originalPrice: number;
+
+    @IsNotEmpty({message: 'The initial quantity cannot be empty'})
+    @IsNumber({allowInfinity: false, allowNaN: false},{message: 'The initial quantity must be of type number(integer)'})
+    @IsInt({message: 'The initial quantity must be of type integer'})
+    @Length(2, 10, {message: 'The value of the initial quantity must be between 2 and 10 numbers'})
     private initialQuantity: number;
+
+    @IsNotEmpty({message: 'The available quantity cannot be empty'})
+    @IsNumber({allowInfinity: false, allowNaN: false},{message: 'The available quantity must be of type number(integer)'})
+    @IsInt({message: 'The available quantity must be of type integer'})
+    @Length(2, 10, {message: 'The value of the available quantity must be between 2 and 10 numbers'})
     private availableQuantity: number;
+
+
     private creationDate: Date;
     private updateDate: Date
 
