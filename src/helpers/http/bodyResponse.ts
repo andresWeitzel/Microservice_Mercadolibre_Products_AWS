@@ -5,14 +5,19 @@
  * @returns a json for the lambda response
  */
 export const requestResult = async (statusCode:number, message:string) => {
-    return {
-        statusCode: statusCode,
-        body: JSON.stringify(
-            {
-                message: message,
-            },
-            null,
-            2
-        ),
-    };
+    try {
+        return {
+            statusCode: statusCode,
+            body: JSON.stringify(
+                {
+                    message: message,
+                },
+                null,
+                2
+            ),
+        };
+    } catch (error) {
+        console.error(`ERROR in function requestResult(). Caused by ${error} . Specific stack is ${error.stack} `);
+    }
+
 }

@@ -1,34 +1,34 @@
-
 //External
 import {
-    IsNotEmpty,
-    IsString,
-    Length
-  } from 'class-validator';
-  
-  
-  //Const/vars
-  let validateCheck;
-  let validatorObj;
-  let eventBodyObj;
-  /**
-   * @description To validate the request body parameters to add a product to the database.
-   * @param {object} eventBody event.body type
-   * @returns a boolean
-   */
-  export const validateProductObject = async (eventBody:any) => {
-    eventBodyObj = null;
-    validatorObj= null;
-    validateCheck = false;
-    
-    try{
-      if(eventBody!=null){
-  
-      }
-  
-    } catch (error) {
-      console.log(error);
+  validate
+} from 'class-validator';
+//Models 
+import { Product } from 'src/models/Product';
+//Const/vars
+let validateCheck;
+
+
+/**
+ * @description Validation of all the properties of the Product class.
+ * @param {object} objProduct object type
+ * @returns a boolean
+ */
+export const validateProductObject = async (objProduct: Product) => {
+  validateCheck = false;
+
+  try {
+
+    validateCheck = await validate(objProduct);
+    console.log({ 'VALIDATE': validateCheck });
+
+    if (validateCheck.length > 0) {
+      console.log(validateCheck.VALIDATE.ValidationError2.constraints);
     }
-  
+
     return validateCheck;
+
+  } catch (error) {
+    console.error(`ERROR in function validateProductObject(). Caused by ${error} . Specific stack is ${error.stack} `);
   }
+
+}

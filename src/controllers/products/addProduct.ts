@@ -10,6 +10,7 @@ import { requestResult } from "src/helpers/http/bodyResponse";
 import { currentDateTime } from "src/helpers/dateTime/dates";
 import { validateAuthHeaders } from "src/helpers/validations/validator/auth/headers";
 import { validateHeadersParams } from "src/helpers/validations/validator/http/requestHeadersParams";
+import { validateProductObject } from "src/helpers/validations/models/validateProductObject";
 
 
 //Const/Vars
@@ -18,7 +19,7 @@ let eventBody;
 let eventHeaders;
 let validateAuth;
 let validateReqParams;
-let validateReqBodyParams;
+let validateObject;
 let siteId;
 let title;
 let subtitle;
@@ -42,10 +43,11 @@ let code;
  * @param {Object} event Object type
  * @returns the result of the transaction carried out in the database
  */
-module.exports.handler = async (event:any) => {
+module.exports.handler = async (event: any) => {
     try {
         //Init
         newUser = null;
+        validateObject = null;
 
         //-- start with validation Headers  ---
         eventHeaders = await event.headers;
@@ -53,38 +55,24 @@ module.exports.handler = async (event:any) => {
         validateReqParams = await validateHeadersParams(eventHeaders);
 
         if (!validateReqParams) {
-          return await requestResult(
-            statusCode.BAD_REQUEST,
-            "Bad request, check missing or malformed headers"
-          );
+            return await requestResult(
+                statusCode.BAD_REQUEST,
+                "Bad request, check missing or malformed headers"
+            );
         }
 
         validateAuth = await validateAuthHeaders(eventHeaders);
 
         if (!validateAuth) {
-          return await requestResult(
-            statusCode.UNAUTHORIZED,
-            "Not authenticated, check x_api_key and Authorization"
-          );
+            return await requestResult(
+                statusCode.UNAUTHORIZED,
+                "Not authenticated, check x_api_key and Authorization"
+            );
         }
         //-- end with validation Headers  ---
 
-        //-- start with validation Body  ---
-
+        //-- start with event body --
         eventBody = JSON.parse(await event.body);
-
-        // validateReqBodyParams = await validateBodyAddProductParams(eventBody);
-
-        // if (!validateReqBodyParams) {
-        //   return await requestResult(
-        //     statusCode.BAD_REQUEST,
-        //     "Bad request, check request attributes. Missing or incorrect"
-        //   );
-        // }
-        //-- end with validation Body  ---
-
-        //-- start with db query  ---
-
 
         siteId = eventBody.site_id;
         title = eventBody.title;
@@ -101,10 +89,25 @@ module.exports.handler = async (event:any) => {
         creationDate = dateNow;
         updateDate = dateNow;
 
+        //-- start with event body --
 
+
+        //-- start with validation Body  ---
 
         newProduct = new Product(siteId, title, subtitle, sellerId, categoryId, officialStoreId, price, basePrice, originalPrice, initialQuantity, availableQuantity, creationDate, updateDate);
 
+
+        validateObject = await validateProductObject(newProduct);
+
+        if (!validateObject) {
+            return await requestResult(
+                statusCode.BAD_REQUEST,
+                "Bad request, check request attributes. Missing or incorrect"
+            );
+        }
+        //-- end with validation Body  ---
+
+        //-- start with db query  ---
 
         newUser = await addProduct(newProduct);
 
