@@ -74,17 +74,17 @@ module.exports.handler = async (event: any) => {
         //-- start with event body --
         eventBody = JSON.parse(await event.body);
 
-        siteId = eventBody.site_id;
-        title = eventBody.title;
-        subtitle = eventBody.subtitle;
-        sellerId = eventBody.seller_id;
-        categoryId = eventBody.category_id;
-        officialStoreId = eventBody.official_store_id;
-        price = eventBody.price;
-        basePrice = eventBody.base_price;
-        originalPrice = eventBody.original_price;
-        initialQuantity = eventBody.initial_quantity;
-        availableQuantity = eventBody.availableQuantity;
+        siteId = await eventBody.site_id;
+        title = await eventBody.title;
+        subtitle = await eventBody.subtitle;
+        sellerId = await eventBody.seller_id;
+        categoryId = await eventBody.category_id;
+        officialStoreId = await eventBody.official_store_id;
+        price = await eventBody.price;
+        basePrice = await eventBody.base_price;
+        originalPrice = await eventBody.original_price;
+        initialQuantity = await eventBody.initial_quantity;
+        availableQuantity = await eventBody.available_quantity;
         dateNow = await currentDateTime();
         creationDate = dateNow;
         updateDate = dateNow;

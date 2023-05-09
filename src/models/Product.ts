@@ -9,6 +9,11 @@ import {
     Min
   } from 'class-validator';
 
+const MAX_VALUE_INTEGER = (Number.MAX_SAFE_INTEGER - 1);
+const MIN_VALUE_FOR_PRICES = 200;
+const MAX_VALUE_FOR_PRICES = 999999999.999;
+
+
 
 export class Product {
     //Fields
@@ -28,7 +33,8 @@ export class Product {
     
     @IsNotEmpty({message: 'The seller id cannot be empty'})
     @IsInt({message: 'The seller id must be of type integer'})
-    @Length(2, 20, {message: 'The value of the seller id must be between 2 and 20 numbers'})
+    @Min(1,{message:'Seller ID value must be greater than zero'})
+    @Max(MAX_VALUE_INTEGER, {message:`Seller ID value must be less than ${MAX_VALUE_INTEGER}`})
     private sellerId: number;
 
     @IsNotEmpty({message: 'The category id cannot be empty'})
@@ -42,36 +48,38 @@ export class Product {
 
     @IsNotEmpty({message: 'The price cannot be empty'})
     @IsNumber({allowInfinity: false, allowNaN: false,maxDecimalPlaces: 3},{message: 'The price must be of type number(decimal) and contain only three decimal places after the separator'})
-    @Min(200.000)
-    @Max(999999999.999)
+    @Min(MIN_VALUE_FOR_PRICES, {message: `The price value must be greater than ${MIN_VALUE_FOR_PRICES}`})
+    @Max(MAX_VALUE_FOR_PRICES, {message: `The price value must be less than ${MAX_VALUE_FOR_PRICES}`})
     private price: number;
 
     @IsNotEmpty({message: 'The base price cannot be empty'})
     @IsNumber({allowInfinity: false, allowNaN: false,maxDecimalPlaces: 3},{message: 'The base price must be of type number(decimal) and contain only three decimal places after the separator'})
-    @Min(200.000)
-    @Max(999999999.999)
+    @Min(MIN_VALUE_FOR_PRICES, {message: `The base price value must be greater than ${MIN_VALUE_FOR_PRICES}`})
+    @Max(MAX_VALUE_FOR_PRICES, {message: `The base price value must be less than ${MAX_VALUE_FOR_PRICES}`})
     private basePrice: number;
 
     @IsNotEmpty({message: 'The original price cannot be empty'})
     @IsNumber({allowInfinity: false, allowNaN: false,maxDecimalPlaces: 3},{message: 'The original price must be of type number(decimal) and contain only three decimal places after the separator'})
-    @Min(200.000)
-    @Max(999999999.999)
+    @Min(MIN_VALUE_FOR_PRICES, {message: `The original price value must be greater than ${MIN_VALUE_FOR_PRICES}`})
+    @Max(MAX_VALUE_FOR_PRICES, {message: `The original price value must be less than ${MAX_VALUE_FOR_PRICES}`})
     private originalPrice: number;
 
     @IsNotEmpty({message: 'The initial quantity cannot be empty'})
     @IsNumber({allowInfinity: false, allowNaN: false},{message: 'The initial quantity must be of type number(integer)'})
     @IsInt({message: 'The initial quantity must be of type integer'})
-    @Length(2, 10, {message: 'The value of the initial quantity must be between 2 and 10 numbers'})
+    @Min(1,{message:'Initial quantity value must be greater than zero'})
+    @Max(MAX_VALUE_INTEGER, {message:`Initial quantity value must be less than ${MAX_VALUE_INTEGER}`})
     private initialQuantity: number;
 
     @IsNotEmpty({message: 'The available quantity cannot be empty'})
     @IsNumber({allowInfinity: false, allowNaN: false},{message: 'The available quantity must be of type number(integer)'})
     @IsInt({message: 'The available quantity must be of type integer'})
-    @Length(2, 10, {message: 'The value of the available quantity must be between 2 and 10 numbers'})
+    @Min(1,{message:'Available quantity value must be greater than zero'})
+    @Max(MAX_VALUE_INTEGER, {message:`Available quantity value must be less than ${MAX_VALUE_INTEGER}`})
     private availableQuantity: number;
 
-
     private creationDate: Date;
+
     private updateDate: Date
 
     //Constructor
