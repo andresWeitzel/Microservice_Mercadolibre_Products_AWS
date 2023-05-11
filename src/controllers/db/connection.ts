@@ -53,7 +53,6 @@ module.exports.handler = async (event:any) => {
       .then(() => {
         msg = 'Database connection has been established successfully.';
         code = statusCode.OK;
-        console.log(msg);
 
       }).catch((error) => {
         msg = `Unable to connect to the database. caused by ${error}`;

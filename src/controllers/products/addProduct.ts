@@ -14,12 +14,12 @@ import { validateProductObject } from "src/helpers/validations/models/validatePr
 
 
 //Const/Vars
-let newUser;
 let eventBody;
 let eventHeaders;
 let validateAuth;
 let validateReqParams;
 let validateObject;
+let objProduct;
 let siteId;
 let title;
 let subtitle;
@@ -46,8 +46,9 @@ let code;
 module.exports.handler = async (event: any) => {
     try {
         //Init
-        newUser = null;
         validateObject = [];
+        objProduct = null;
+        newProduct = null;
 
         //-- start with validation Headers  ---
         eventHeaders = await event.headers;
@@ -94,10 +95,10 @@ module.exports.handler = async (event: any) => {
 
         //-- start with validation Body  ---
 
-        newProduct = new Product(siteId, title, subtitle, sellerId, categoryId, officialStoreId, price, basePrice, originalPrice, initialQuantity, availableQuantity, creationDate, updateDate);
+        objProduct = new Product(siteId, title, subtitle, sellerId, categoryId, officialStoreId, price, basePrice, originalPrice, initialQuantity, availableQuantity, creationDate, updateDate);
 
 
-        validateObject = await validateProductObject(newProduct);
+        validateObject = await validateProductObject(objProduct);
 
         if (validateObject.length) {
             return await requestResult(
@@ -109,27 +110,27 @@ module.exports.handler = async (event: any) => {
 
         //-- start with db query  ---
 
-        newUser = await addProduct(newProduct);
+        newProduct = await addProduct(objProduct);
 
-        if (newUser == statusName.CONNECTION_REFUSED) {
+        if (newProduct == statusName.CONNECTION_REFUSED) {
             return await requestResult(
                 statusCode.INTERNAL_SERVER_ERROR,
                 "ECONNREFUSED. An error has occurred with the connection or query to the database. Verify that it is active or available"
             );
         }
-        else if (newUser == statusName.CONNECTION_ERROR) {
+        else if (newProduct == statusName.CONNECTION_ERROR) {
             return await requestResult(
                 statusCode.INTERNAL_SERVER_ERROR,
                 "ERROR. An error has occurred in the process operations and queries with the database. Try again"
             );
         }
-        else if (newUser == null) {
+        else if (newProduct == null) {
             return await requestResult(
                 statusCode.INTERNAL_SERVER_ERROR,
                 "Bad request, could not add user. Check the values of each attribute and try again"
             );
         } else {
-            return await requestResult(statusCode.OK, newUser);
+            return await requestResult(statusCode.OK, newProduct);
         }
 
         //-- end with db query  ---

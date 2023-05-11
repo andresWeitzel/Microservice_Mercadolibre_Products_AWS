@@ -58,12 +58,14 @@ export const ProductSequelize = dbConnection.define("products", {
         type: DataTypes.DECIMAL(6,3)
         , allowNull: false
     },
+    //YYYY-MM-DD hh:mm:ss
     creation_date: {
-        type: DataTypes.DATE
+        type: DataTypes.STRING(19)
         , allowNull: false
     },
+    //YYYY-MM-DD hh:mm:ss
     update_date: {
-        type: DataTypes.DATE
+        type: DataTypes.STRING(19)
         , allowNull: false
     }
 },

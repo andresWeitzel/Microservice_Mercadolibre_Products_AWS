@@ -16,5 +16,4 @@ export const currentDateTime = async () => {
     } catch (error) {
         console.error(`ERROR in function currentDateTime(). Caused by ${error} . Specific stack is ${error.stack} `);
     }
-
 }

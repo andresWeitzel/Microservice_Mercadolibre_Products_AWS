@@ -78,12 +78,12 @@ export class Product {
     @Max(MAX_VALUE_INTEGER, {message:`Available quantity value must be less than ${MAX_VALUE_INTEGER}`})
     private availableQuantity: number;
 
-    private creationDate: Date;
+    private creationDate: string;
 
-    private updateDate: Date
+    private updateDate: string
 
     //Constructor
-    constructor($siteId: string, $title: string, $subtitle: string, $sellerId: number, $categoryId: string, $officialStoreId: string, $price: number, $basePrice: number, $originalPrice: number, $initialQuantity: number, $availableQuantity: number, $creationDate: Date, $updateDate: Date) {
+    constructor($siteId: string, $title: string, $subtitle: string, $sellerId: number, $categoryId: string, $officialStoreId: string, $price: number, $basePrice: number, $originalPrice: number, $initialQuantity: number, $availableQuantity: number, $creationDate: string, $updateDate: string) {
 		this.siteId = $siteId;
 		this.title = $title;
 		this.subtitle = $subtitle;
@@ -187,19 +187,19 @@ export class Product {
         this.availableQuantity = availableQuantity;
     }
 
-    public getCreationDate(): Date {
+    public getCreationDate(): string {
         return this.creationDate;
     }
 
-    public setCreationDate(creationDate: Date): void {
+    public setCreationDate(creationDate: string): void {
         this.creationDate = creationDate;
     }
 
-    public getUpdateDate(): Date {
+    public getUpdateDate(): string {
         return this.updateDate;
     }
 
-    public setUpdateDate(updateDate: Date): void {
+    public setUpdateDate(updateDate: string): void {
         this.updateDate = updateDate;
     }
 
