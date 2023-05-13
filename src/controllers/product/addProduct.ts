@@ -1,7 +1,7 @@
 //Models
 import { Product } from "src/models/Product";
 //Services
-import { addProduct } from "src/services/addProduct";
+import { addProduct } from "src/services/product/addProduct";
 //Enums
 import { statusName } from "src/enums/connection/statusName";
 import { statusCode } from "src/enums/http/statusCode";

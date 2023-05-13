@@ -10,7 +10,7 @@ const {
  * @description define the credentials and endpoint for a new s3 client
  * @param {Object} event Object type
  */
-const newClientS3 = async () => {
+export const newClientS3 = async () => {
     try {
         const client = new S3Client({
             forcePathStyle: true,
@@ -26,7 +26,3 @@ const newClientS3 = async () => {
         console.log(error);
     }
 }
-
-module.exports = {
-    newClientS3
-};

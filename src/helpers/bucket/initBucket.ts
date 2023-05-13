@@ -14,7 +14,7 @@ let content;
 /**
  * @description We initialize the bucket with an empty json object
  */
-const initBucketIfEmpty = async () => {
+export const initBucketIfEmpty = async () => {
     try {
         //Data
         initJson = [];
@@ -32,8 +32,3 @@ const initBucketIfEmpty = async () => {
         console.log(error);
     }
 }
-
-
-module.exports = {
-    initBucketIfEmpty
-};

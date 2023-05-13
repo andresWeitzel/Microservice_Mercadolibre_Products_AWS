@@ -100,7 +100,8 @@ npm i
 
     # API VALUES
     API_VERSION : 'v1'
-    API_ENDPOINT_NAME : 'products'
+    API_ENDPOINT_PRODUCTS_NAME : 'products'
+    API_ENDPOINT_PRODUCTS_SPECIFICATIONS_NAME : 'products_specifications'
 
     # Database
     DATABASE_NAME : 'microdb_mercadolibre_productos'

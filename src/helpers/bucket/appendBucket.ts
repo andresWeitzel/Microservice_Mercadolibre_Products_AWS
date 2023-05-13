@@ -14,7 +14,7 @@ let clientS3Result;
  * @description append bucket objects
  * @param {Object} event Object type
  */
-const appendBucket = async (appendData) => {
+export const appendBucket = async (appendData:any) => {
     try {
         
         clientS3Result = null;
@@ -34,7 +34,3 @@ const appendBucket = async (appendData) => {
     
     return clientS3Result;
 }
-
-module.exports = {
-    appendBucket
-};

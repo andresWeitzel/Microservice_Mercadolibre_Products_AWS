@@ -13,8 +13,6 @@ let msg;
  * @description add product to database
  * @param {Object} inputProduct Object type
  * @returns a json object with the transaction performed
- * @example
- * 
  */
 export const addProduct = async function (inputProduct: Product) {
     try {

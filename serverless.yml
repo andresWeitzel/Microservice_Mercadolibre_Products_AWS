@@ -32,8 +32,8 @@ plugins:
   - serverless-offline
 
 functions:
-#DATABASE TEST
- databaseTestConnection:
+  #DATABASE TEST
+  databaseTestConnection:
     handler: src/controllers/db/connection.handler
     description: Function in charge of checking the connection to the db
     events:
@@ -41,8 +41,8 @@ functions:
           path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PRODUCTS_NAME}/db-connection
           method: get
           private: true
-#PRODUCTS          
- addProduct:
+  #PRODUCTS          
+  addProduct:
     handler: src/controllers/product/addProduct.handler
     description: lambda function to add a product to the database
     events:
@@ -50,7 +50,7 @@ functions:
           path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PRODUCTS_NAME}/
           method: POST
           private: true  
- getByIdProduct:
+  getByIdProduct:
     handler: src/controllers/product/getByIdProduct.handler
     description: lambda function to get a product from the database according to its id
     events:
@@ -58,7 +58,7 @@ functions:
           path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PRODUCTS_NAME}/id/{id}
           method: GET
           private: true
- getAllProduct:
+  getAllProduct:
     handler: src/controllers/product/getAllProduct.handler
     description: lambda function to get all paginated products from the database
     events:
@@ -66,9 +66,9 @@ functions:
           path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PRODUCTS_NAME}/list
           method: GET
           private: true       
-#PRODUCT_SPECIFICATION
-uploadProductSpecification:
-    handler: src/controllers/productSpecification/uploadProductSpecification.handler
+  #PRODUCT_SPECIFICATION
+  addProductSpecification:
+    handler: src/controllers/productSpecification/addProductSpecification.handler
     description: Function to store an product specification object inside the s3 bucket
     events:
       - http:

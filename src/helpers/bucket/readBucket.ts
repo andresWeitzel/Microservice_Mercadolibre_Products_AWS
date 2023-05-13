@@ -21,7 +21,7 @@ let clientS3;
  * @description read bucket objects
  * @returns a list of objects
  */
-const readBucket = async () => {
+export const readBucket = async () => {
   try {
     //Checks
     objectString = "";
@@ -44,7 +44,3 @@ const readBucket = async () => {
     console.log(error);
   }
 }
-
-module.exports = {
-  readBucket
-};
