@@ -245,6 +245,7 @@ sls offline start
 | [Serverless Framework Core v3](https://www.serverless.com//blog/serverless-framework-v3-is-live) | 3.23.0 | Core Servicios AWS |
 | [Systems Manager Parameter Store (SSM)](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) | 3.0 | Manejo de Variables de Entorno |
 | [Amazon Api Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html) | 2.0 | Gestor, Autenticación, Control y Procesamiento de la Api | 
+| [Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingBucket.html) | 3.0 | Contenedor de Objetos | 
 | [NodeJS](https://nodejs.org/en/) | 14.18.1  | Librería JS |
 | [Typescript](https://www.typescriptlang.org/) | 3.8.3  | Lenguaje con alto tipado basado en JS |
 | [Sequelize](https://sequelize.org/) | ^6.11.0 | ORM |
@@ -263,6 +264,8 @@ sls offline start
 | [Serverless Plugin](https://www.serverless.com/plugins/) |
 | [serverless-offline](https://www.npmjs.com/package/serverless-offline) |
 | [serverless-offline-ssm](https://www.npmjs.com/package/serverless-offline-ssm) |
+| [serverless-s3-local](https://www.serverless.com/plugins/serverless-s3-local) | complemento sin servidor para ejecutar clones de S3 en local
+
 
 </br>
 
@@ -351,6 +354,11 @@ sls offline start
 #### Api Gateway
  * [Buenas Prácticas Api-Gateway](https://docs.aws.amazon.com/whitepapers/latest/best-practices-api-gateway-private-apis-integration/rest-api.html)
  * [Creación de Api-keys personalizadas](https://towardsaws.com/protect-your-apis-by-creating-api-keys-using-serverless-framework-fe662ad37447)
+
+#### Configuración buckets
+* [s3-example](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/s3-example-configuring-buckets.html)
+* [s3-examples oficial](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/s3-node-examples.html)
+
 
  #### Librerías
  * [Validación de campos](https://www.npmjs.com/package/node-input-validator)

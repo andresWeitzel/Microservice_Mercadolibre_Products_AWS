@@ -32,48 +32,61 @@ plugins:
   - serverless-offline
 
 functions:
+#DATABASE TEST
  databaseTestConnection:
     handler: src/controllers/db/connection.handler
     description: Function in charge of checking the connection to the db
     events:
       - http:
-          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_NAME}/db-connection
+          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PRODUCTS_NAME}/db-connection
           method: get
           private: true
+#PRODUCTS          
  addProduct:
-    handler: src/controllers/products/addProduct.handler
+    handler: src/controllers/product/addProduct.handler
     description: lambda function to add a product to the database
     events:
       - http:
-          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_NAME}/
+          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PRODUCTS_NAME}/
           method: POST
           private: true  
  getByIdProduct:
-    handler: src/controllers/products/getByIdProduct.handler
+    handler: src/controllers/product/getByIdProduct.handler
     description: lambda function to get a product from the database according to its id
     events:
       - http:
-          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_NAME}/id/{id}
+          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PRODUCTS_NAME}/id/{id}
           method: GET
           private: true
  getAllProduct:
-    handler: src/controllers/products/getAllProduct.handler
+    handler: src/controllers/product/getAllProduct.handler
     description: lambda function to get all paginated products from the database
     events:
       - http:
-          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_NAME}/list
+          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PRODUCTS_NAME}/list
           method: GET
+          private: true       
+#PRODUCT_SPECIFICATION
+uploadProductSpecification:
+    handler: src/controllers/productSpecification/uploadProductSpecification.handler
+    description: Function to store an product specification object inside the s3 bucket
+    events:
+      - http:
+          method: POST
+          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PRODUCTS_SPECIFICATIONS_NAME}/
           private: true                                  
- 
 resources:
   - ${file(src/resources/api-gateway.yml)}
   - ${file(src/resources/bucket-s3.yml)}
 
 custom:
-  serverless-offline:
-    httpPort: 4000
-    lambdaPort: 4002
+  s3:
+    host: ${file(./serverless_ssm.yml):S3_HOST}
+    directory: ${file(./serverless_ssm.yml):S3_DIRECTORY}
   serverless-offline-ssm:
     stages:
       - dev
     ssm: ${file(./serverless_ssm.yml)}
+  serverless-offline:
+    httpPort: 4000
+    lambdaPort: 4002    
