@@ -1,0 +1,5 @@
+Resources:
+  Buckets3:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: ${file(./serverless_ssm.yml):BUCKET_NAME}

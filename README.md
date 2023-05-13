@@ -112,6 +112,19 @@ npm i
     DATABASE_POOL_MIN : 0
     DATABASE_POOL_ACQUIRE : 30000
     DATABASE_POOL_IDLE : 10000
+
+    #Products Specification Bucket s3
+    BUCKET_NAME: PRODUCTS_SPECIFICATIONS_BUCKET
+    BUCKET_KEY: productsSpecificationsBucketS3.json
+    # S3 Client
+    # This specific key is required when working offline
+    S3_CLIENT_ACCESS_KEY_ID: S3RVER
+    S3_CLIENT_SECRET_ACCESS_KEY: S3RVER
+    S3_CLIENT_ENDPOINT: http://localhost:4569
+        
+    # S3 Config
+    S3_HOST: localhostdir
+    S3_DIRECTORY: /AWS-S3/storage
   ```  
 * Ejecutamos el proyecto
 ```git
@@ -167,10 +180,19 @@ npm i serverless-offline --save-dev
 ```git
 npm i serverless-offline-ssm --save-dev
 ```
+* Instalamos S3 local
+```git
+npm install serverless-s3-local --save-dev
+```
+* Instalamos el Cliente s3
+```git
+npm install @aws-sdk/client-s3
+```
 * Agregamos los plugins de serverless al .yml
 ```git
 plugins:
   - serverless-esbuild
+  - serverless-s3-local
   - serverless-offline-ssm
   - serverless-offline
 

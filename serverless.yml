@@ -27,6 +27,7 @@ provider:
 
 plugins:
   - serverless-esbuild
+  - serverless-s3-local
   - serverless-offline-ssm
   - serverless-offline
 
@@ -66,6 +67,7 @@ functions:
  
 resources:
   - ${file(src/resources/api-gateway.yml)}
+  - ${file(src/resources/bucket-s3.yml)}
 
 custom:
   serverless-offline:
