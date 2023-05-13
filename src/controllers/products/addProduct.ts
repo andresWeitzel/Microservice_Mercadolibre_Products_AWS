@@ -39,7 +39,7 @@ let msg;
 let code;
 
 /**
- * @description add a user according to the parameters passed in the request body
+ * @description Add a user according to the parameters passed in the request body
  * @param {Object} event Object type
  * @returns the result of the transaction carried out in the database
  */

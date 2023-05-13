@@ -1,5 +1,5 @@
 //Services
-import { getById, getByIdWithoutDate } from "src/services/getById";
+import { getAll } from "src/services/getAll";
 //Enums
 import { statusName } from "src/enums/connection/statusName";
 import { statusCode } from "src/enums/http/statusCode";
@@ -7,28 +7,31 @@ import { statusCode } from "src/enums/http/statusCode";
 import { requestResult } from "src/helpers/http/bodyResponse";
 import { validateAuthHeaders } from "src/helpers/validations/validator/auth/headers";
 import { validateHeadersParams } from "src/helpers/validations/validator/http/requestHeadersParams";
-import { validatePathParameters } from "src/helpers/http/queryStringParams";
 
 
 //Const/Vars
 let eventHeaders;
 let validateAuth;
 let validateReqParams;
-let validatePathParams;
-let productId;
-let product;
+let pageSizeNro: number;
+let pageNro: number;
+let queryStrParams;
+let productList:any;
 let msg;
 let code;
+const orderBy = [["id", "ASC"]];
 
 /**
- * @description Get a product from the database according to the id passed as a parameter
+ * @description Get all paginated productLists from the database
  * @param {Object} event Object type
- * @returns a Product object according to his id and status code
+ * @returns all paginated productList objects and status code
  */
 module.exports.handler = async (event: any) => {
     try {
         //Init
-        product = null;
+        productList = null;
+        pageSizeNro = 5;
+        pageNro = 0;
 
         //-- start with validation Headers  ---
         eventHeaders = await event.headers;
@@ -52,48 +55,44 @@ module.exports.handler = async (event: any) => {
         }
         //-- end with validation Headers  ---
 
-        //-- start with path parameters  ---
-        productId = await event.pathParameters.id;
+        //-- start with pagination  ---
+        queryStrParams = event.queryStringParameters;
 
-        validatePathParams = await validatePathParameters(productId);
-
-        if (!validatePathParams) {
-            return await requestResult(
-                statusCode.BAD_REQUEST,
-                "Bad request, the id passed as a parameter is not valid"
-            );
+        if (queryStrParams != null) {
+            pageSizeNro = parseInt(await event.queryStringParameters.limit);
+            pageNro = parseInt(await event.queryStringParameters.page);
         }
-        //-- end with path parameters  ---
+        //-- end with pagination  ---
 
         //-- start with db query  ---
-        product = await getById(productId);
-        //product = await getByIdWithoutDate(productId);
+        productList = await getAll(pageSizeNro, pageNro, orderBy);
+        // userList = await getAllWithoutDate(pageSizeNro, pageNro, orderBy);
 
-        if (product == statusName.CONNECTION_REFUSED) {
+        if (productList == statusName.CONNECTION_REFUSED) {
             return await requestResult(
                 statusCode.INTERNAL_SERVER_ERROR,
                 "ECONNREFUSED. An error has occurred with the connection or query to the database. Verify that it is active or available"
             );
         }
-        else if (product == statusName.CONNECTION_ERROR) {
+        else if (productList == statusName.CONNECTION_ERROR) {
             return await requestResult(
                 statusCode.INTERNAL_SERVER_ERROR,
                 "ERROR. An error has occurred in the process operations and queries with the database. Try again"
             );
         }
-        else if (product == null) {
+        else if (productList == null) {
             return await requestResult(
                 statusCode.INTERNAL_SERVER_ERROR,
-                "Bad request, could not get product according to the given ID. Check the ID and try again"
+                "Bad request, could not get a paginated product list. Check the ID and try again"
             );
         } else {
-            return await requestResult(statusCode.OK, product);
+            return await requestResult(statusCode.OK, productList);
         }
         //-- end with db query  ---
 
 
     } catch (error) {
-        msg = `Error in getById lambda. Caused by ${error}`;
+        msg = `Error in getAllProduct lambda. Caused by ${error}`;
         code = statusCode.INTERNAL_SERVER_ERROR;
         console.error(`${msg}. Stack error type : ${error.stack}`);
 

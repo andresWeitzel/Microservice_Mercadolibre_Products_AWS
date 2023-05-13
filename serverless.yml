@@ -57,7 +57,7 @@ functions:
           private: true
  getAllProduct:
     handler: src/controllers/products/getAllProduct.handler
-    description: lambda function to get all product from the database
+    description: lambda function to get all paginated products from the database
     events:
       - http:
           path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_NAME}/list
