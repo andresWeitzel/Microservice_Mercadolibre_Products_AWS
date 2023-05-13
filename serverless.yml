@@ -54,7 +54,15 @@ functions:
       - http:
           path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_NAME}/id/{id}
           method: GET
-          private: true                    
+          private: true
+ getAllProduct:
+    handler: src/controllers/products/getAllProduct.handler
+    description: lambda function to get all product from the database
+    events:
+      - http:
+          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_NAME}/list
+          method: GET
+          private: true                                  
  
 resources:
   - ${file(src/resources/api-gateway.yml)}
