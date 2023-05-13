@@ -1,5 +1,5 @@
 //Services
-import { getById, getByIdWithoutDate } from "src/services/getById";
+import { getById, getByIdWithoutDate } from "src/services/product/getById";
 //Enums
 import { statusName } from "src/enums/connection/statusName";
 import { statusCode } from "src/enums/http/statusCode";

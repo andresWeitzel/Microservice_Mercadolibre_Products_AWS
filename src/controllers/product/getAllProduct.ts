@@ -1,5 +1,5 @@
 //Services
-import { getAll } from "src/services/getAll";
+import { getAll } from "src/services/product/getAll";
 //Enums
 import { statusName } from "src/enums/connection/statusName";
 import { statusCode } from "src/enums/http/statusCode";

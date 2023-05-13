@@ -47,7 +47,7 @@ functions:
     description: lambda function to add a product to the database
     events:
       - http:
-          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PRODUCTS_NAME}/
+          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PRODUCTS_NAME}/add
           method: POST
           private: true  
   getByIdProduct:
@@ -73,7 +73,7 @@ functions:
     events:
       - http:
           method: POST
-          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PRODUCTS_SPECIFICATIONS_NAME}/
+          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PRODUCTS_SPECIFICATIONS_NAME}/add
           private: true                                  
 resources:
   - ${file(src/resources/api-gateway.yml)}
