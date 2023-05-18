@@ -26,19 +26,15 @@ export class ProductSpecification {
     @Length(2, 36, {message: 'The value of the specification Uuid must be between 2 and 36 characters'})
     private specificationUuid: string;
 
-    @IsNotEmpty({message: 'The pdf file cannot be empty'})
-    private pdfFile: any;
-
     private creationDate: string;
 
     private updateDate: string
 
 
     //Constructor
-    constructor($productId: number, $specificationUuid: string, $pdfFile: any, $creationDate: string, $updateDate: string) {
+    constructor($productId: number, $specificationUuid: string, $creationDate: string, $updateDate: string) {
 		this.productId = $productId;
 		this.specificationUuid = $specificationUuid;
-		this.pdfFile = $pdfFile;
 		this.creationDate = $creationDate;
         this.updateDate = $updateDate;
 	}
@@ -58,15 +54,7 @@ export class ProductSpecification {
     public setspecificationUuid(specificationUuid: string): void {
         this.specificationUuid = specificationUuid;
     }
-
-    public getPdfFile(): any {
-        return this.pdfFile;
-    }
-
-    public setPdfFile(pdfFile: any): void {
-        this.pdfFile = pdfFile;
-    }
-
+    
     public getCreationDate(): string {
         return this.creationDate;
     }

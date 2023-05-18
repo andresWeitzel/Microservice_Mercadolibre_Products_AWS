@@ -1,5 +1,5 @@
 //Models
-import { Product } from "src/models/Product";
+import { Product } from "src/models/Products/Product";
 //Services
 import { addProduct } from "src/services/product/addProduct";
 //Enums

@@ -1,8 +1,8 @@
 //Externals
 import { Sequelize } from "sequelize";
 //Models
-import { Product } from "src/models/Product";
-import { ProductSequelize } from "src/models/ProductSequelize";
+import { Product } from "src/models/Products/Product";
+import { ProductSequelize } from "src/models/Sequelize/ProductSequelize";
 //Enums
 import { statusName } from "src/enums/connection/statusName";
 //Const/Vars

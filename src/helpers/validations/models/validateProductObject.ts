@@ -3,7 +3,7 @@ import {
   validate
 } from 'class-validator';
 //Models 
-import { Product } from 'src/models/Product';
+import { Product } from 'src/models/Products/Product';
 //Const/vars
 let stackFieldsErrors;
 
