@@ -1,10 +1,10 @@
-//Externals
-import { Sequelize } from "sequelize";
 //Models
 import { Product } from "src/models/Products/Product";
 import { ProductSequelize } from "src/models/Sequelize/ProductSequelize";
 //Enums
 import { statusName } from "src/enums/connection/statusName";
+//Helpers
+import { getDateFormat } from "src/helpers/sequelize/dateFormat";
 //Const/Vars
 let product: any;
 let msg: string;
@@ -20,27 +20,14 @@ export const getAll = async function (pageSizeNro: number, pageNro: number, orde
     try {
         //Init
         product = null;
+        msg = null;
 
         if (Product != null) {
             await ProductSequelize.findAll({
                 attributes: {
                     include: [
-                        [
-                            Sequelize.fn(
-                                "DATE_FORMAT",
-                                Sequelize.col("creation_date"),
-                                "%Y-%m-%d %H:%i:%s"
-                            ),
-                            "creation_date",
-                        ],
-                        [
-                            Sequelize.fn(
-                                "DATE_FORMAT",
-                                Sequelize.col("update_date"),
-                                "%Y-%m-%d %H:%i:%s"
-                            ),
-                            "update_date",
-                        ],
+                        await getDateFormat("creation_date"),
+                        await getDateFormat("update_date")
                     ],
                 },
                 limit: pageSizeNro,

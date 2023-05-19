@@ -18,6 +18,7 @@ let msg: string
 export const getById = async function (id: number) {
   try {
     product = null;
+    msg = null;
 
     if (Product != null) {
       await ProductSequelize.findByPk(id
@@ -74,6 +75,7 @@ export const getById = async function (id: number) {
 export const getByIdWithoutDate = async function (id: number) {
   try {
     product = null;
+    msg = null;
 
     if (Product != null) {
       await ProductSequelize.findByPk(id

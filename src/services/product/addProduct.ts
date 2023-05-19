@@ -5,8 +5,8 @@ import { ProductSequelize } from "src/models/Sequelize/ProductSequelize";
 //Enums
 import { statusName } from "src/enums/connection/statusName";
 //Const/Vars
-let product;
-let msg;
+let product:any;
+let msg:string;
 
 
 /**
