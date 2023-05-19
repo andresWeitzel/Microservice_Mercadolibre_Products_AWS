@@ -2,13 +2,19 @@
 import { appendBucket } from "src/helpers/bucket/appendBucket";
 import { initBucketIfEmpty } from "src/helpers/bucket/initBucket";
 import { readBucket } from "src/helpers/bucket/readBucket";
-//Helpers
+//Models
+import { ProductSpecification } from "src/models/Products/ProductSpecification";
+//Enums
 import { statusCode } from "src/enums/http/statusCode";
+//Helpers
 import { formatToJson } from "src/helpers/format/formatToJson";
 import { formatToString } from "src/helpers/format/formatToString";
 import { requestResult } from "src/helpers/http/bodyResponse";
 import { validateAuthHeaders } from "src/helpers/validations/validator/auth/headers";
 import { validateHeadersParams } from "src/helpers/validations/validator/http/requestHeadersParams";
+import { currentDateTime } from "src/helpers/dateTime/dates";
+import { validateProductSpecificationObject } from "src/helpers/validations/models/validateProductSpecifObject";
+
 
   //Const/Vars
   let eventBody;
@@ -20,6 +26,12 @@ import { validateHeadersParams } from "src/helpers/validations/validator/http/re
   let validateBodyAddObject;
   let newObject;
   let bodyObj;
+  let productId:number;
+  let specificationUuid:string;
+  let dateNow:string;
+  let creationDate:string;
+  let updateDate:string;
+  let objProductSpecification:ProductSpecification;
   let msg:string;
   let code:number;
   
@@ -35,6 +47,7 @@ import { validateHeadersParams } from "src/helpers/validations/validator/http/re
       bodyObj = null;
       bucketContent = null;
       newObject = null;
+      objProductSpecification=null;
   
   
       //-- start with validation Headers  ---
@@ -58,21 +71,31 @@ import { validateHeadersParams } from "src/helpers/validations/validator/http/re
         );
       }
       //-- end with validation Headers  ---
+
+        //-- start with event body --
+        eventBody = await formatToJson(event.body);
+
+        productId = await eventBody.product_id;
+        specificationUuid = await eventBody.specification_uuid;
+        dateNow = await currentDateTime();
+        creationDate = dateNow;
+        updateDate = dateNow;
+        //-- start with event body --
   
   
-      // //-- start with validation Body  ---
+      //-- start with validation Body  ---
+
+      objProductSpecification = new ProductSpecification(productId, specificationUuid, creationDate, updateDate);
+
+      validateBodyAddObject = await validateProductSpecificationObject(eventBody);
   
-      // eventBody = await formatToJson(event.body);
-  
-      // validateBodyAddObject = await validateBodyAddObjectParams(eventBody);
-  
-      // if (!validateBodyAddObject) {
-      //   return await requestResult(
-      //     statusCode.BAD_REQUEST,
-      //     "Bad request, check request attributes. Missing or incorrect"
-      //   );
-      // }
-      // // -- end with validation Body  ---
+      if (!validateBodyAddObject) {
+        return await requestResult(
+          statusCode.BAD_REQUEST,
+          "Bad request, check request attributes. Missing or incorrect"
+        );
+      }
+      // -- end with validation Body  ---
   
   
       // //-- start with bucket operations  ---

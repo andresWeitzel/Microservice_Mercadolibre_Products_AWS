@@ -4,14 +4,15 @@
  * @param {Object} obj Object type
  * @returns an object json with this format
  */
-export const formatToJson = async (obj:any) => {
+export const formatToJson = async (obj: any) => {
     try {
         if (typeof obj != 'object') {
             //Convert to json to save
             obj = await JSON.parse(obj);
-          }
+        }
     } catch (error) {
-        console.log(error);
+        console.log(`Error in formatToJson(), caused by ${{ error }}`);
+        console.error(error.stack);
     }
     return obj;
 }

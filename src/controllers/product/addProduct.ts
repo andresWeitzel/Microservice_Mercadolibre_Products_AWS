@@ -11,6 +11,7 @@ import { currentDateTime } from "src/helpers/dateTime/dates";
 import { validateAuthHeaders } from "src/helpers/validations/validator/auth/headers";
 import { validateHeadersParams } from "src/helpers/validations/validator/http/requestHeadersParams";
 import { validateProductObject } from "src/helpers/validations/models/validateProductObject";
+import { formatToJson } from "src/helpers/format/formatToJson";
 
 
 //Const/Vars
@@ -73,7 +74,7 @@ module.exports.handler = async (event: any) => {
         //-- end with validation Headers  ---
 
         //-- start with event body --
-        eventBody = JSON.parse(await event.body);
+        eventBody = await formatToJson(event.body);
 
         siteId = await eventBody.site_id;
         title = await eventBody.title;
