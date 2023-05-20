@@ -9,17 +9,25 @@ let dateFormat:any;
  * @returns a json with sequelize date format
  */
 export const getDateFormat = async(field:string) => {
-  dateFormat =  { include: [
-    [
-      Sequelize.fn(
-        "DATE_FORMAT",
-        Sequelize.col(field),
-        "%Y-%m-%d %H:%i:%s"
-      ),
-      field,
+  try {
+    dateFormat =  { include: [
+      [
+        Sequelize.fn(
+          "DATE_FORMAT",
+          Sequelize.col(field),
+          "%Y-%m-%d %H:%i:%s"
+        ),
+        field,
+      ]
     ]
-  ]
-}
-    return dateFormat.include[0];
+  }
+      return dateFormat.include[0];
+
+  } catch (error) {
+    console.log(`Error in getDateFormat(), caused by ${{ error }}`);
+    console.error(error.stack);
+    
+  }
+ 
 }
 

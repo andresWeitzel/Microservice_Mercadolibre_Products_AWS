@@ -13,10 +13,7 @@ import { ProductSpecification } from 'src/models/Products/ProductSpecification';
    * @param {object} objProductSpecification object type
    * @returns an array object with the specific errors (constraints) of each class property
    * @example  [
-      'The value of the site id must be between 2 and 20 characters',
-      'The site id cannot be empty',
-      'The value of the title must be between 2 and 100 characters',
-      'The title cannot be empty'
+      'Bad request, check request attributes. Validate the following : product id value must be less than 9007199254740990,product id value must be greater than zero,The product id must be of type integer,The product id cannot be empty,The value of the specification Uuid must be between 2 and 36 characters,The specification Uuid must be of type string,The specification Uuid cannot be empty'
     ]
    */
   export const validateProductSpecificationObject = async (objProductSpecification: ProductSpecification) => {

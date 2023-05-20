@@ -78,9 +78,15 @@ export class Product {
     @Max(MAX_VALUE_INTEGER, {message:`Available quantity value must be less than ${MAX_VALUE_INTEGER}`})
     private availableQuantity: number;
 
+    @IsNotEmpty({message: 'The creation date cannot be empty'})
+    @IsString({message: 'The creation date must be of type string'})
+    @Length(2, 22, {message: 'The value of the creation date must be between 2 and 22 characters'})
     private creationDate: string;
 
-    private updateDate: string
+    @IsNotEmpty({message: 'The update date cannot be empty'})
+    @IsString({message: 'The update date must be of type string'})
+    @Length(2, 22, {message: 'The value of the update date must be between 2 and 22 characters'})
+    private updateDate: string;
 
     //Constructor
     constructor($siteId: string, $title: string, $subtitle: string, $sellerId: number, $categoryId: string, $officialStoreId: string, $price: number, $basePrice: number, $originalPrice: number, $initialQuantity: number, $availableQuantity: number, $creationDate: string, $updateDate: string) {

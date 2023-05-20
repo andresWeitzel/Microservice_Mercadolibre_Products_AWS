@@ -69,11 +69,11 @@ functions:
   #PRODUCT_SPECIFICATION
   addProductSpecification:
     handler: src/controllers/productSpecification/addProductSpecification.handler
-    description: Function to store an product specification object inside the s3 bucket
+    description: Function to store an product specification object inside the database for have a reference to s3 bucket
     events:
       - http:
           method: POST
-          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PRODUCTS_SPECIFICATIONS_NAME}/add
+          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PRODUCTS_SPECIFICATIONS_NAME}/add/{productId}
           private: true                                  
 resources:
   - ${file(src/resources/api-gateway.yml)}

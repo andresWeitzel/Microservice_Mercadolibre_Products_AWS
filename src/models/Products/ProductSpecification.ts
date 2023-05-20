@@ -26,9 +26,15 @@ export class ProductSpecification {
     @Length(2, 36, {message: 'The value of the specification Uuid must be between 2 and 36 characters'})
     private specificationUuid: string;
 
+    @IsNotEmpty({message: 'The creation date cannot be empty'})
+    @IsString({message: 'The creation date must be of type string'})
+    @Length(2, 22, {message: 'The value of the creation date must be between 2 and 22 characters'})
     private creationDate: string;
 
-    private updateDate: string
+    @IsNotEmpty({message: 'The update date cannot be empty'})
+    @IsString({message: 'The update date must be of type string'})
+    @Length(2, 22, {message: 'The value of the update date must be between 2 and 22 characters'})
+    private updateDate: string;
 
 
     //Constructor
