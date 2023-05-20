@@ -1,14 +1,9 @@
-//Helpers Bucket
-import { appendBucket } from "src/helpers/bucket/appendBucket";
-import { initBucketIfEmpty } from "src/helpers/bucket/initBucket";
-import { readBucket } from "src/helpers/bucket/readBucket";
 //Models
 import { ProductSpecification } from "src/models/Products/ProductSpecification";
 //Enums
 import { statusCode } from "src/enums/http/statusCode";
+import { statusName } from "src/enums/connection/statusName";
 //Helpers
-import { formatToJson } from "src/helpers/format/formatToJson";
-import { formatToString } from "src/helpers/format/formatToString";
 import { requestResult } from "src/helpers/http/bodyResponse";
 import { validateAuthHeaders } from "src/helpers/validations/validator/auth/headers";
 import { validateHeadersParams } from "src/helpers/validations/validator/http/requestHeadersParams";
@@ -17,27 +12,27 @@ import { validateProductSpecificationObject } from "src/helpers/validations/mode
 import { validatePathParameters } from "src/helpers/http/queryStringParams";
 import { generateUuidV4 } from "src/helpers/math/generateUuid";
 import { formatToBigint } from "src/helpers/format/formatToNumber";
+import { addProductSpecification } from "src/services/productSpecification.ts/addProductSpecification";
+
 
 
 //Const/Vars
-let eventBody;
 let eventHeaders;
-let jsonInit;
-let bucketContent;
 let validateReqParams;
 let validateAuth;
 let validateBodyAddObject;
-let newObject;
-let bodyObj;
-let validatePathParams:boolean;
+let validatePathParams: boolean;
+let newProductSpecification:any;
 let productId: number;
 let specificationUuid: string;
+let stopTime:string;
 let dateNow: string;
 let creationDate: string;
 let updateDate: string;
 let objProductSpecification: ProductSpecification;
 let msg: string;
 let code: number;
+const FIRST_STOP_TIME="2045-02-10 10:15";
 
 /**
  * @description add an object inside the s3 bucket 
@@ -47,11 +42,8 @@ let code: number;
 module.exports.handler = async (event: any) => {
   try {
     //Init
-    jsonInit = [];
-    bodyObj = null;
-    bucketContent = null;
-    newObject = null;
     objProductSpecification = null;
+    newProductSpecification = null;
 
 
     //-- start with validation Headers  ---
@@ -93,10 +85,11 @@ module.exports.handler = async (event: any) => {
     productId = await formatToBigint(productId);
     specificationUuid = await generateUuidV4();
     dateNow = await currentDateTime();
+    stopTime=FIRST_STOP_TIME;
     creationDate = dateNow;
     updateDate = dateNow;
 
-    objProductSpecification = new ProductSpecification(productId, specificationUuid, creationDate, updateDate);
+    objProductSpecification = new ProductSpecification(productId, specificationUuid, stopTime, creationDate, updateDate);
 
     validateBodyAddObject = await validateProductSpecificationObject(objProductSpecification);
 
@@ -109,48 +102,32 @@ module.exports.handler = async (event: any) => {
     // -- end with validation object  ---
 
 
-    // //-- start with bucket operations  ---
+    //-- start with db query  ---
 
-    // await initBucketIfEmpty();
+    newProductSpecification = await addProductSpecification(objProductSpecification);
 
-    // bucketContent = await readBucket();
+    if (newProductSpecification == statusName.CONNECTION_REFUSED) {
+      return await requestResult(
+        statusCode.INTERNAL_SERVER_ERROR,
+        "ECONNREFUSED. An error has occurred with the connection or query to the database. Verify that it is active, available, id is valid or exist"
+      );
+    }
+    else if (newProductSpecification == statusName.CONNECTION_ERROR) {
+      return await requestResult(
+        statusCode.INTERNAL_SERVER_ERROR,
+        "ERROR. An error has occurred in the process operations and queries with the database. Try again"
+      );
+    }
+    else if (newProductSpecification == null) {
+      return await requestResult(
+        statusCode.INTERNAL_SERVER_ERROR,
+        "Bad request, could not add user. Check the values of each attribute and try again"
+      );
+    } else {
+      return await requestResult(statusCode.OK, newProductSpecification);
+    }
 
-    // if (bucketContent == null) {
-    //   return await requestResult(
-    //     statusCode.INTERNAL_SERVER_ERROR,
-    //     "An unexpected error has occurred. The object could not be stored inside the bucket."
-    //   );
-    // }
-    //Added unique identificator for the object
-    // eventBody.uuid = await generateUUID();
-
-    // bucketContent = await formatToJson(bucketContent);
-
-    // await bucketContent.push(eventBody);
-
-    // newObject = await formatToString(bucketContent);
-
-    // let newObjectResult = await appendBucket(newObject);
-
-    // if (newObjectResult != null) {
-    //   return await requestResult(
-    //     statusCode.OK,
-    //     eventBody
-    //   );
-    // } else {
-    //   return await requestResult(
-    //     statusCode.INTERNAL_SERVER_ERROR,
-    //     "An unexpected error has occurred. The object could not be stored inside the bucket."
-    //   )
-    // }
-
-    //-- end with bucket operations  ---
-
-    return await requestResult(
-      statusCode.OK,
-      eventBody
-    );
-
+    //-- end with db query  ---
   } catch (error) {
     msg = `Error in addProductSpecification lambda. Caused by ${error}`;
     code = statusCode.INTERNAL_SERVER_ERROR;

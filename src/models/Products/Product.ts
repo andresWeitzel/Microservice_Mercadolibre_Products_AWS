@@ -12,6 +12,8 @@ import {
 const MAX_VALUE_INTEGER = (Number.MAX_SAFE_INTEGER - 1);
 const MIN_VALUE_FOR_PRICES = 200;
 const MAX_VALUE_FOR_PRICES = 999999999.999;
+const MIN_VALUE_FOR_DATE_FORMAT = 2;
+const MAX_VALUE_FOR_DATE_FORMAT = 19;
 
 
 
@@ -80,16 +82,16 @@ export class Product {
 
     @IsNotEmpty({message: 'The creation date cannot be empty'})
     @IsString({message: 'The creation date must be of type string'})
-    @Length(2, 22, {message: 'The value of the creation date must be between 2 and 22 characters'})
+    @Length(MIN_VALUE_FOR_DATE_FORMAT, MAX_VALUE_FOR_DATE_FORMAT, {message: `The value of the creation date must be between ${MIN_VALUE_FOR_DATE_FORMAT} and ${MAX_VALUE_FOR_DATE_FORMAT} characters`})
     private creationDate: string;
 
     @IsNotEmpty({message: 'The update date cannot be empty'})
     @IsString({message: 'The update date must be of type string'})
-    @Length(2, 22, {message: 'The value of the update date must be between 2 and 22 characters'})
+    @Length(MIN_VALUE_FOR_DATE_FORMAT, MAX_VALUE_FOR_DATE_FORMAT, {message: `The value of the update date must be between ${MIN_VALUE_FOR_DATE_FORMAT} and ${MAX_VALUE_FOR_DATE_FORMAT} characters`})
     private updateDate: string;
 
     //Constructor
-    constructor($siteId: string, $title: string, $subtitle: string, $sellerId: number, $categoryId: string, $officialStoreId: string, $price: number, $basePrice: number, $originalPrice: number, $initialQuantity: number, $availableQuantity: number, $creationDate: string, $updateDate: string) {
+    constructor($siteId: string, $title: string, $subtitle: string, $sellerId: number, $categoryId: string, $officialStoreId: string, $price: number, $basePrice: number, $originalPrice: number, $initialQuantity: number, $availableQuantity: number,  $creationDate: string, $updateDate: string) {
 		this.siteId = $siteId;
 		this.title = $title;
 		this.subtitle = $subtitle;
