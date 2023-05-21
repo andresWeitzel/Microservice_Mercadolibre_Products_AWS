@@ -1,10 +1,10 @@
 /**
  * @description get a json with the http status code, a message and input
  * @param {Number} statusCode Number type
- * @param {String} message String type
+ * @param {Any} message any type
  * @returns a json for the lambda response
  */
-export const requestResult = async (statusCode:number, message:string) => {
+export const requestResult = async (statusCode:number, message:any) => {
     try {
         return {
             statusCode: statusCode,

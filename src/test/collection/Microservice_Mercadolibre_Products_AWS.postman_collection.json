@@ -169,7 +169,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n        \"site_id\" : \"MLA\",\r\n        \"title\" : \"Suplemento en polvo TRB Pharma\",\r\n        \"subtitle\" : \"Suplemento en polvo TRB Pharma Ultraflex HMB/3000 colágeno hidrolizado sabor frutos rojos en lata de 420g pack x 2 u\",\r\n        \"seller_id\" : 3,\r\n        \"category_id\" : \"MLA26718222\",\r\n        \"official_store_id\" : \"MLA18948067\",\r\n        \"price\" : 220,\r\n        \"base_price\" : 12562,\r\n        \"original_price\" : 16960,\r\n        \"initial_quantity\" : 400,\r\n        \"available_quantity\" : 123\r\n}"
+									"raw": "{\r\n        \"site_id\" : \"MLA3\",\r\n        \"title\" : \"Suplemento en polvo TRB Pharma3\",\r\n        \"subtitle\" : \"Suplemento en polvo TRB Pharma Ultraflex HMB/3000 colágeno hidrolizado sabor frutos rojos en lata de 420g pack x 2 u3\",\r\n        \"seller_id\" : 3,\r\n        \"category_id\" : \"MLA267182223\",\r\n        \"official_store_id\" : \"MLA189480673\",\r\n        \"price\" : 220,\r\n        \"base_price\" : 12562,\r\n        \"original_price\" : 16960,\r\n        \"initial_quantity\" : 400,\r\n        \"available_quantity\" : 123,\r\n        \"has_specification\": true\r\n}"
 								},
 								"url": {
 									"raw": "{{base_url}}/v1/products/add",
@@ -407,17 +407,18 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n        \"site_id\" : \"MLA\",\r\n        \"title\" : \"Suplemento en polvo TRB Pharma\",\r\n        \"subtitle\" : \"Suplemento en polvo TRB Pharma Ultraflex HMB/3000 colágeno hidrolizado sabor frutos rojos en lata de 420g pack x 2 u\",\r\n        \"seller_id\" : 3,\r\n        \"category_id\" : \"MLA26718222\",\r\n        \"official_store_id\" : \"MLA18948067\",\r\n        \"price\" : 220,\r\n        \"base_price\" : 12562,\r\n        \"original_price\" : 16960,\r\n        \"initial_quantity\" : 400,\r\n        \"available_quantity\" : 123\r\n}"
+									"raw": ""
 								},
 								"url": {
-									"raw": "{{base_url}}/v1/products-specifications/add",
+									"raw": "{{base_url}}/v1/products-specifications/add/4",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"v1",
 										"products-specifications",
-										"add"
+										"add",
+										"4"
 									]
 								}
 							},

@@ -99,6 +99,9 @@ npm i
     BEARER_TOKEN : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
 
     # API VALUES
+    API_HOST : 'localhost'
+    API_PORT: '4000'
+    API_STAGE: 'dev'
     API_VERSION : 'v1'
     API_ENDPOINT_PRODUCTS_NAME : 'products'
     API_ENDPOINT_PRODUCTS_SPECIFICATIONS_NAME : 'products-specifications'
