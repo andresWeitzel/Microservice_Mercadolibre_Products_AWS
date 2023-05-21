@@ -1,5 +1,6 @@
 //External
 import {
+    IsBoolean,
     IsInt,
     IsNotEmpty,
     IsNumber,
@@ -80,6 +81,10 @@ export class Product {
     @Max(MAX_VALUE_INTEGER, {message:`Available quantity value must be less than ${MAX_VALUE_INTEGER}`})
     private availableQuantity: number;
 
+    @IsNotEmpty({message: 'The has specification cannot be empty'})
+    @IsBoolean({message: 'The has specification must be of type boolean'})
+    private hasSpecification: boolean;
+
     @IsNotEmpty({message: 'The creation date cannot be empty'})
     @IsString({message: 'The creation date must be of type string'})
     @Length(MIN_VALUE_FOR_DATE_FORMAT, MAX_VALUE_FOR_DATE_FORMAT, {message: `The value of the creation date must be between ${MIN_VALUE_FOR_DATE_FORMAT} and ${MAX_VALUE_FOR_DATE_FORMAT} characters`})
@@ -91,7 +96,7 @@ export class Product {
     private updateDate: string;
 
     //Constructor
-    constructor($siteId: string, $title: string, $subtitle: string, $sellerId: number, $categoryId: string, $officialStoreId: string, $price: number, $basePrice: number, $originalPrice: number, $initialQuantity: number, $availableQuantity: number,  $creationDate: string, $updateDate: string) {
+    constructor($siteId: string, $title: string, $subtitle: string, $sellerId: number, $categoryId: string, $officialStoreId: string, $price: number, $basePrice: number, $originalPrice: number, $initialQuantity: number, $availableQuantity: number, $hasSpecification:boolean,  $creationDate: string, $updateDate: string) {
 		this.siteId = $siteId;
 		this.title = $title;
 		this.subtitle = $subtitle;
@@ -103,6 +108,7 @@ export class Product {
 		this.originalPrice = $originalPrice;
 		this.initialQuantity = $initialQuantity;
 		this.availableQuantity = $availableQuantity;
+        this.hasSpecification = $hasSpecification;
 		this.creationDate = $creationDate;
         this.updateDate = $updateDate;
 	}
@@ -193,6 +199,14 @@ export class Product {
 
     public setAvailableQuantity(availableQuantity: number): void {
         this.availableQuantity = availableQuantity;
+    }
+
+    public getHasSpecification(): boolean {
+        return this.hasSpecification;
+    }
+
+    public setHasSpecification(hasSpecification: boolean): void {
+        this.hasSpecification = hasSpecification;
     }
 
     public getCreationDate(): string {

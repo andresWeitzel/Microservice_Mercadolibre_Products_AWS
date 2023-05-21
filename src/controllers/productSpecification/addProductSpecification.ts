@@ -69,63 +69,66 @@ module.exports.handler = async (event: any) => {
     //-- end with validation Headers  ---
 
     //-- start with path parameters  ---
-    productId = await event.pathParameters.productId;
+    //productId = await event.pathParameters.productId;
 
-    validatePathParams = await validatePathParameters(productId);
+    // validatePathParams = await validatePathParameters(productId);
 
-    if (!validatePathParams) {
-      return await requestResult(
-        statusCode.BAD_REQUEST,
-        "Bad request, the product id passed as a parameter is not valid"
-      );
-    }
+    // if (!validatePathParams) {
+    //   return await requestResult(
+    //     statusCode.BAD_REQUEST,
+    //     "Bad request, the product id passed as a parameter is not valid"
+    //   );
+    // }
     //-- end with path parameters  ---
 
     //-- start with validation object  ---
-    productId = await formatToBigint(productId);
-    specificationUuid = await generateUuidV4();
-    dateNow = await currentDateTime();
-    stopTime=FIRST_STOP_TIME;
-    creationDate = dateNow;
-    updateDate = dateNow;
+    // productId = await formatToBigint(productId);
+    // specificationUuid = await generateUuidV4();
+    // dateNow = await currentDateTime();
+    // stopTime=FIRST_STOP_TIME;
+    // creationDate = dateNow;
+    // updateDate = dateNow;
 
-    objProductSpecification = new ProductSpecification(productId, specificationUuid, stopTime, creationDate, updateDate);
+    // objProductSpecification = new ProductSpecification(productId, specificationUuid, stopTime, creationDate, updateDate);
 
-    validateBodyAddObject = await validateProductSpecificationObject(objProductSpecification);
+    // validateBodyAddObject = await validateProductSpecificationObject(objProductSpecification);
 
-    if (validateBodyAddObject.length) {
-      return await requestResult(
-        statusCode.BAD_REQUEST,
-        `Bad request, check request attributes. Validate the following : ${validateBodyAddObject}`
-      );
-    }
+    // if (validateBodyAddObject.length) {
+    //   return await requestResult(
+    //     statusCode.BAD_REQUEST,
+    //     `Bad request, check request attributes. Validate the following : ${validateBodyAddObject}`
+    //   );
+    // }
     // -- end with validation object  ---
 
 
     //-- start with db query  ---
 
-    newProductSpecification = await addProductSpecification(objProductSpecification);
+    // newProductSpecification = await addProductSpecification(objProductSpecification);
 
-    if (newProductSpecification == statusName.CONNECTION_REFUSED) {
-      return await requestResult(
-        statusCode.INTERNAL_SERVER_ERROR,
-        "ECONNREFUSED. An error has occurred with the connection or query to the database. Verify that it is active, available, id is valid or exist"
-      );
-    }
-    else if (newProductSpecification == statusName.CONNECTION_ERROR) {
-      return await requestResult(
-        statusCode.INTERNAL_SERVER_ERROR,
-        "ERROR. An error has occurred in the process operations and queries with the database. Try again"
-      );
-    }
-    else if (newProductSpecification == null) {
-      return await requestResult(
-        statusCode.INTERNAL_SERVER_ERROR,
-        "Bad request, could not add user. Check the values of each attribute and try again"
-      );
-    } else {
-      return await requestResult(statusCode.OK, newProductSpecification);
-    }
+    // if (newProductSpecification == statusName.CONNECTION_REFUSED) {
+    //   return await requestResult(
+    //     statusCode.INTERNAL_SERVER_ERROR,
+    //     "ECONNREFUSED. An error has occurred with the connection or query to the database. Verify that it is active, available, id is valid or exist"
+    //   );
+    // }
+    // else if (newProductSpecification == statusName.CONNECTION_ERROR) {
+    //   return await requestResult(
+    //     statusCode.INTERNAL_SERVER_ERROR,
+    //     "ERROR. An error has occurred in the process operations and queries with the database. Try again"
+    //   );
+    // }
+    // else if (newProductSpecification == null) {
+    //   return await requestResult(
+    //     statusCode.INTERNAL_SERVER_ERROR,
+    //     "Bad request, could not add user. Check the values of each attribute and try again"
+    //   );
+    // } else {
+    //   return await requestResult(statusCode.OK, newProductSpecification);
+    // }
+
+    console.log('INVOKE');
+    return await requestResult(statusCode.OK, 'INVOKE');
 
     //-- end with db query  ---
   } catch (error) {

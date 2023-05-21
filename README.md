@@ -126,6 +126,11 @@ npm i
     # S3 Config
     S3_HOST: localhostdir
     S3_DIRECTORY: /AWS-S3/storage
+
+    # AWS credencials
+    REGION: us-east-1
+    AWS_ACCESS_KEY_ID : 123
+    AWS_SECRET_ACCESS_KEY: 123
   ```  
 * Ejecutamos el proyecto
 ```git
