@@ -16,6 +16,7 @@ import { validateProductObject } from "src/helpers/validations/models/validatePr
 import { formatToJson } from "src/helpers/format/formatToJson";
 import { getLikeCreationDateAndTitle } from 'src/services/product/getLikeCreationDateAndTitle';
 import { formatToString } from 'src/helpers/format/formatToString';
+import { getAddedProductSpecificationObject } from 'src/helpers/axios/sendRequest';
 
 
 //Const/Vars
@@ -151,25 +152,20 @@ module.exports.handler = async (event: any) => {
       let idAddedProductObject = await addedProductObject[0].dataValues.id;
 
       const PRODUCT_SPECIFICATION_ENDPOINT = `http://${process.env.API_HOST}:${process.env.API_PORT}/${process.env.API_STAGE}/${process.env.API_VERSION}/${process.env.API_ENDPOINT_PRODUCTS_SPECIFICATIONS_NAME}/add/${idAddedProductObject}`;
-
-      // TODO implement
-      let axiosResponse = await axios.post(PRODUCT_SPECIFICATION_ENDPOINT, { "data": event.data }, {
-        headers: {
+      
+      let headers = {headers: {
           "Content-Type": "application/json",
           "x-api-key": process.env.X_API_KEY,
           "Authorization": process.env.BEARER_TOKEN
-        }
-      },).then(axiosResponse => axiosResponse)
-        .catch((error) => {
-          console.log(error);
-          return error;
-        });
+        }};
 
-        let objectList = [];
-        objectList.push(objProduct);
-        objectList.push(axiosResponse.data.message);
+      let addedProductSpecificationObject = await getAddedProductSpecificationObject(PRODUCT_SPECIFICATION_ENDPOINT, null, headers);
 
-        return await requestResult(statusCode.OK, objectList);
+        let objectsList = [];
+        objectsList.push(objProduct);
+        objectsList.push(addedProductSpecificationObject.data.message);
+
+        return await requestResult(statusCode.OK, objectsList);
     }
   //-- end with db PRODUCT_SPECIFICATION query  ---
 
