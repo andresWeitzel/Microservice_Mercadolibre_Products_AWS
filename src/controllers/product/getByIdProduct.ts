@@ -5,15 +5,13 @@ import { statusName } from "src/enums/connection/statusName";
 import { statusCode } from "src/enums/http/statusCode";
 //Helpers
 import { requestResult } from "src/helpers/http/bodyResponse";
-import { validateAuthHeaders } from "src/helpers/validations/validator/auth/headers";
-import { validateHeadersParams } from "src/helpers/validations/validator/http/requestHeadersParams";
 import { validatePathParameters } from "src/helpers/http/queryStringParams";
+import { validateHeadersAndKeys } from "src/helpers/validations/headers/validateHeadersAndKeys";
 
 
 //Const/Vars
-let eventHeaders;
-let validateAuth;
-let validateReqParams;
+let eventHeaders: any;
+let checkEventHeadersAndKeys: any;
 let validatePathParams;
 let productId;
 let product;
@@ -30,27 +28,16 @@ module.exports.handler = async (event: any) => {
         //Init
         product = null;
 
-        //-- start with validation Headers  ---
+        //-- start with validation headers and keys  ---
         eventHeaders = await event.headers;
 
-        validateReqParams = await validateHeadersParams(eventHeaders);
+        checkEventHeadersAndKeys = await validateHeadersAndKeys(eventHeaders);
 
-        if (!validateReqParams) {
-            return await requestResult(
-                statusCode.BAD_REQUEST,
-                "Bad request, check missing or malformed headers"
-            );
+        if (checkEventHeadersAndKeys != null) {
+            return checkEventHeadersAndKeys;
         }
 
-        validateAuth = await validateAuthHeaders(eventHeaders);
-
-        if (!validateAuth) {
-            return await requestResult(
-                statusCode.UNAUTHORIZED,
-                "Not authenticated, check x_api_key and Authorization"
-            );
-        }
-        //-- end with validation Headers  ---
+        //-- end with validation headers and keys ---
 
         //-- start with path parameters  ---
         productId = await event.pathParameters.id;

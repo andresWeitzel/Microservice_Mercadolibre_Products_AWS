@@ -1,5 +1,3 @@
-//External
-import axios from 'axios';
 //Models
 import { Product } from "src/models/Products/Product";
 //Services
@@ -10,20 +8,17 @@ import { statusCode } from "src/enums/http/statusCode";
 //Helpers
 import { requestResult } from "src/helpers/http/bodyResponse";
 import { currentDateTime } from "src/helpers/dateTime/dates";
-import { validateAuthHeaders } from "src/helpers/validations/validator/auth/headers";
-import { validateHeadersParams } from "src/helpers/validations/validator/http/requestHeadersParams";
 import { validateProductObject } from "src/helpers/validations/models/validateProductObject";
 import { formatToJson } from "src/helpers/format/formatToJson";
 import { getLikeCreationDateAndTitle } from 'src/services/product/getLikeCreationDateAndTitle';
-import { formatToString } from 'src/helpers/format/formatToString';
 import { getAddedProductSpecificationObject } from 'src/helpers/axios/sendRequest';
+import { validateHeadersAndKeys } from "src/helpers/validations/headers/validateHeadersAndKeys";
 
 
 //Const/Vars
 let eventBody;
-let eventHeaders;
-let validateAuth;
-let validateReqParams;
+let eventHeaders: any;
+let checkEventHeadersAndKeys: any;
 let validateObject;
 let objProduct;
 let siteId;
@@ -58,27 +53,17 @@ module.exports.handler = async (event: any) => {
     objProduct = null;
     newProduct = null;
 
-    //-- start with validation Headers  ---
+
+    //-- start with validation headers and keys  ---
     eventHeaders = await event.headers;
 
-    validateReqParams = await validateHeadersParams(eventHeaders);
+    checkEventHeadersAndKeys = await validateHeadersAndKeys(eventHeaders);
 
-    if (!validateReqParams) {
-      return await requestResult(
-        statusCode.BAD_REQUEST,
-        "Bad request, check missing or malformed headers"
-      );
+    if (checkEventHeadersAndKeys != null) {
+      return checkEventHeadersAndKeys;
     }
 
-    validateAuth = await validateAuthHeaders(eventHeaders);
-
-    if (!validateAuth) {
-      return await requestResult(
-        statusCode.UNAUTHORIZED,
-        "Not authenticated, check x_api_key and Authorization"
-      );
-    }
-    //-- end with validation Headers  ---
+    //-- end with validation headers and keys ---
 
     //-- start with event body --
     eventBody = await formatToJson(event.body);
@@ -152,24 +137,26 @@ module.exports.handler = async (event: any) => {
       let idAddedProductObject = await addedProductObject[0].dataValues.id;
 
       const PRODUCT_SPECIFICATION_ENDPOINT = `http://${process.env.API_HOST}:${process.env.API_PORT}/${process.env.API_STAGE}/${process.env.API_VERSION}/${process.env.API_ENDPOINT_PRODUCTS_SPECIFICATIONS_NAME}/add/${idAddedProductObject}`;
-      
-      let headers = {headers: {
+
+      let headers = {
+        headers: {
           "Content-Type": "application/json",
           "x-api-key": process.env.X_API_KEY,
           "Authorization": process.env.BEARER_TOKEN
-        }};
+        }
+      };
 
       let addedProductSpecificationObject = await getAddedProductSpecificationObject(PRODUCT_SPECIFICATION_ENDPOINT, null, headers);
 
-        let objectsList = [];
-        objectsList.push(objProduct);
-        objectsList.push(addedProductSpecificationObject.data.message);
+      let objectsList = [];
+      objectsList.push(objProduct);
+      objectsList.push(addedProductSpecificationObject.data.message);
 
-        return await requestResult(statusCode.OK, objectsList);
+      return await requestResult(statusCode.OK, objectsList);
     }
-  //-- end with db PRODUCT_SPECIFICATION query  ---
+    //-- end with db PRODUCT_SPECIFICATION query  ---
 
-  return await requestResult(statusCode.OK, objProduct);
+    return await requestResult(statusCode.OK, objProduct);
 
   } catch (error) {
     msg = `Error in addProduct lambda. Caused by ${error}`;

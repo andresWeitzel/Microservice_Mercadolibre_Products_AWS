@@ -5,34 +5,32 @@ import { statusCode } from "src/enums/http/statusCode";
 import { statusName } from "src/enums/connection/statusName";
 //Helpers
 import { requestResult } from "src/helpers/http/bodyResponse";
-import { validateAuthHeaders } from "src/helpers/validations/validator/auth/headers";
-import { validateHeadersParams } from "src/helpers/validations/validator/http/requestHeadersParams";
 import { currentDateTime } from "src/helpers/dateTime/dates";
 import { validateProductSpecificationObject } from "src/helpers/validations/models/validateProductSpecifObject";
 import { validatePathParameters } from "src/helpers/http/queryStringParams";
 import { generateUuidV4 } from "src/helpers/math/generateUuid";
 import { formatToBigint } from "src/helpers/format/formatToNumber";
 import { addProductSpecification } from "src/services/productSpecification.ts/addProductSpecification";
+import { validateHeadersAndKeys } from "src/helpers/validations/headers/validateHeadersAndKeys";
 
 
 
 //Const/Vars
-let eventHeaders;
-let validateReqParams;
-let validateAuth;
+let eventHeaders: any;
+let checkEventHeadersAndKeys: any;
 let validateBodyAddObject;
 let validatePathParams: boolean;
-let newProductSpecification:any;
+let newProductSpecification: any;
 let productId: number;
 let specificationUuid: string;
-let stopTime:string;
+let stopTime: string;
 let dateNow: string;
 let creationDate: string;
 let updateDate: string;
 let objProductSpecification: ProductSpecification;
 let msg: string;
 let code: number;
-const FIRST_STOP_TIME="2045-02-10 10:15";
+const FIRST_STOP_TIME = "2045-02-10 10:15";
 
 /**
  * @description add an object inside the s3 bucket 
@@ -46,27 +44,16 @@ module.exports.handler = async (event: any) => {
     newProductSpecification = null;
 
 
-    //-- start with validation Headers  ---
+    //-- start with validation headers and keys  ---
     eventHeaders = await event.headers;
 
-    validateReqParams = await validateHeadersParams(eventHeaders);
+    checkEventHeadersAndKeys = await validateHeadersAndKeys(eventHeaders);
 
-    if (!validateReqParams) {
-      return await requestResult(
-        statusCode.BAD_REQUEST,
-        "Bad request, check missing or malformed headers"
-      );
+    if (checkEventHeadersAndKeys != null) {
+      return checkEventHeadersAndKeys;
     }
 
-    validateAuth = await validateAuthHeaders(eventHeaders);
-
-    if (!validateAuth) {
-      return await requestResult(
-        statusCode.UNAUTHORIZED,
-        "Not authenticated, check x_api_key and Authorization"
-      );
-    }
-    //-- end with validation Headers  ---
+    //-- end with validation headers and keys ---
 
     //-- start with path parameters  ---
     productId = await event.pathParameters.productId;
@@ -85,7 +72,7 @@ module.exports.handler = async (event: any) => {
     productId = await formatToBigint(productId);
     specificationUuid = await generateUuidV4();
     dateNow = await currentDateTime();
-    stopTime=FIRST_STOP_TIME;
+    stopTime = FIRST_STOP_TIME;
     creationDate = dateNow;
     updateDate = dateNow;
 
