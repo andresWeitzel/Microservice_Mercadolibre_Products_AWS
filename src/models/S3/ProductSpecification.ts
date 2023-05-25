@@ -14,14 +14,14 @@ export class ProductSpecificationS3 {
     private specificationUuid: string;
 
     @IsNotEmpty({ message: 'The pdf file cannot be empty' })
+    @IsString({ message: 'The pdf file must be of type string' })
+    @Length(50, 500, { message: 'The pdf file must be between 50 and 500 characters' })
     private pdfFile: any;
 
     //Constructor
     constructor($specificationUuid: string, $pdfFile: any) {
-
         this.specificationUuid = $specificationUuid;
         this.pdfFile = $pdfFile;
-
     }
     //Setters and getters
     public getspecificationUuid(): string {
