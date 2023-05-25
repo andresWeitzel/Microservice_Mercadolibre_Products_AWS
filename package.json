@@ -4,6 +4,8 @@
   "description": "Serverless aws-nodejs-typescript template",
   "main": "serverless.ts",
   "scripts": {
+    "serverless-offline": "sls offline start",
+    "start": "npm run serverless-offline"
   },
   "engines": {
     "node": ">=14.15.0"

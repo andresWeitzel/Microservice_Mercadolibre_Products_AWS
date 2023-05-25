@@ -3,7 +3,7 @@ import { ProductSpecification } from "src/models/Products/ProductSpecification";
 //Enums
 import { statusCode } from "src/enums/http/statusCode";
 //Services
-import { addProductSpecifService } from "src/services/productSpecification.ts/addProductSpecifService";
+import { addProductSpecifService } from "src/services/productSpecification/addProductSpecifService";
 //Helpers
 import { requestResult } from "src/helpers/http/bodyResponse";
 import { currentDateTime } from "src/helpers/dateTime/dates";

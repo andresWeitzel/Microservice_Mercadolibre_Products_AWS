@@ -8,7 +8,7 @@ import { dbConnection } from "src/db/config";
 /**
  * @description database product specification model with their respective fields and constraints
  */
-export const ProductSpecificationSequelize = dbConnection.define("products_specifications", {
+export const ProductSpecifSequelize = dbConnection.define("products_specifications", {
     id: {
         type: DataTypes.INTEGER
         , allowNull: true

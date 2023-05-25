@@ -68,13 +68,30 @@ functions:
           private: true       
   #PRODUCT_SPECIFICATION
   addProductSpecification:
-    handler: src/controllers/productSpecification/addProductSpecificationController.handler
+    handler: src/controllers/productSpecification/addProductSpecifController.handler
     description: Function to store an product specification object inside the database for have a reference to s3 bucket
     events:
       - http:
           method: POST
           path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PRODUCTS_SPECIFICATIONS_NAME}/add/{productId}
-          private: true                                  
+          private: true     
+  getAllProductSpecification:
+    handler: src/controllers/productSpecification/getAllProductSpecifController.handler
+    description: lambda function to get all paginated products specification from the database
+    events:
+      - http:
+          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PRODUCTS_SPECIFICATIONS_NAME}/list
+          method: GET
+          private: true    
+#PRODUCT_SPECIFICATION_S3          
+  addProductSpecificationS3:
+    handler: src/controllers/productSpecification/addProductSpecifController.handler
+    description: Function to store an product specification object inside the s3 bucket
+    events:
+      - http:
+          method: POST
+          path: /${file(./serverless_ssm.yml):API_VERSION}/${file(./serverless_ssm.yml):API_ENDPOINT_PRODUCTS_SPECIFICATIONS_NAME}/add/{productId}
+          private: true 
 resources:
   - ${file(src/resources/api-gateway.yml)}
   - ${file(src/resources/bucket-s3.yml)}

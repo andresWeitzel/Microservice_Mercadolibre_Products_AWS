@@ -105,6 +105,7 @@ npm i
     API_VERSION : 'v1'
     API_ENDPOINT_PRODUCTS_NAME : 'products'
     API_ENDPOINT_PRODUCTS_SPECIFICATIONS_NAME : 'products-specifications'
+    API_ENDPOINT_PRODUCTS_SPECIFICATIONS_S3_NAME : 'products-specifications-s3'
 
     # Database
     DATABASE_NAME : 'microdb_mercadolibre_productos'
@@ -135,9 +136,17 @@ npm i
     AWS_ACCESS_KEY_ID : 123
     AWS_SECRET_ACCESS_KEY: 123
   ```  
-* Ejecutamos el proyecto
+* El siguiente script configurado en el package.json del proyecto es el encargado de
+   * Levantar serverless-offline (serverless-offline)
+ ```git
+  "scripts": {
+    "serverless-offline": "sls offline start",
+    "start": "npm run serverless-offline"
+  },
+```
+* Ejecutamos el proyecto desde terminal
 ```git
-sls offline start
+npm start
 ```
  
 
@@ -229,9 +238,17 @@ npm i mysql2 --save
 ```git
 npm i pg-hstore --save
 ```
-* Ejecutamos el proyecto
+* El siguiente script configurado en el package.json del proyecto es el encargado de
+   * Levantar serverless-offline (serverless-offline)
+ ```git
+  "scripts": {
+    "serverless-offline": "sls offline start",
+    "start": "npm run serverless-offline"
+  },
+```
+* Ejecutamos el proyecto desde terminal
 ```git
-sls offline start
+npm start
 ```
 
 

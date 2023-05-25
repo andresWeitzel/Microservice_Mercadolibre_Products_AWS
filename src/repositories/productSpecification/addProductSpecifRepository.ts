@@ -1,6 +1,6 @@
 
 //Models
-import { ProductSpecificationSequelize } from "src/models/Sequelize/ProductSpecification";
+import { ProductSpecifSequelize } from "src/models/Sequelize/ProductSpecifSequelize";
 //Enums
 import { statusName } from "src/enums/connection/statusName";
 import { ProductSpecification } from "src/models/Products/ProductSpecification";
@@ -20,7 +20,7 @@ export const addProductSpecifRepository = async function (inputProduct: ProductS
         msg = null;
 
         if (ProductSpecification != null) {
-            await ProductSpecificationSequelize.create(
+            await ProductSpecifSequelize.create(
                 {
                     product_id: inputProduct.getproductId(),
                     specification_uuid: inputProduct.getspecificationUuid(),
