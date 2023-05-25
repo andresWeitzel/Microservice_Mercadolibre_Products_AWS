@@ -1,7 +1,7 @@
 //Models
 import { Product } from "src/models/Products/Product";
 //Services
-import { addProduct } from "src/services/product/addProduct";
+import { addProductService } from "src/services/product/addProductService";
 //Enums
 import { statusName } from "src/enums/connection/statusName";
 import { statusCode } from "src/enums/http/statusCode";
@@ -104,33 +104,14 @@ module.exports.handler = async (event: any) => {
 
     //-- start with db PRODUCT query  ---
 
-    newProduct = await addProduct(objProduct);
-    newProduct = true;
+    newProduct = await addProductService(objProduct);
 
-    if (newProduct == statusName.CONNECTION_REFUSED) {
-      return await requestResult(
-        statusCode.INTERNAL_SERVER_ERROR,
-        "ECONNREFUSED. An error has occurred with the connection or query to the database. Verify that it is active or available"
-      );
-    }
-    else if (newProduct == statusName.CONNECTION_ERROR) {
-      return await requestResult(
-        statusCode.INTERNAL_SERVER_ERROR,
-        "ERROR. An error has occurred in the process operations and queries with the database. Try again"
-      );
-    }
-    else if (newProduct == null) {
-      return await requestResult(
-        statusCode.INTERNAL_SERVER_ERROR,
-        "Bad request, could not add user. Check the values of each attribute and try again"
-      );
-    }
     //-- end with db PRODUCT query  ---
 
 
     //-- start with db PRODUCT_SPECIFICATION query  ---
 
-    if (hasSpecification) {
+    if (hasSpecification && (newProduct.statusCode = statusCode.OK)) {
 
       let addedProductObject = await getLikeCreationDateAndTitle(title, creationDate);
 
@@ -156,10 +137,10 @@ module.exports.handler = async (event: any) => {
     }
     //-- end with db PRODUCT_SPECIFICATION query  ---
 
-    return await requestResult(statusCode.OK, objProduct);
+    return newProduct;
 
   } catch (error) {
-    msg = `Error in addProduct lambda. Caused by ${error}`;
+    msg = `Error in addProductController lambda. Caused by ${error}`;
     code = statusCode.INTERNAL_SERVER_ERROR;
     console.error(`${msg}. Stack error type : ${error.stack}`);
 

@@ -43,7 +43,7 @@ functions:
           private: true
   #PRODUCTS          
   addProduct:
-    handler: src/controllers/product/addProduct.handler
+    handler: src/controllers/product/addProductController.handler
     description: lambda function to add a product to the database
     events:
       - http:
@@ -51,7 +51,7 @@ functions:
           method: POST
           private: true  
   getByIdProduct:
-    handler: src/controllers/product/getByIdProduct.handler
+    handler: src/controllers/product/getByIdProductController.handler
     description: lambda function to get a product from the database according to its id
     events:
       - http:

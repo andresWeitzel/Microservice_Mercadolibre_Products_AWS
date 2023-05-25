@@ -14,7 +14,7 @@ let msg:string;
  * @param {Object} inputProduct Object type
  * @returns a json object with the transaction performed
  */
-export const addProduct = async function (inputProduct: Product) {
+export const addProductRepository = async function (inputProduct: Product) {
     try {
         product = null;
         msg = null;
@@ -51,7 +51,7 @@ export const addProduct = async function (inputProduct: Product) {
 
         return product;
     } catch (error) {
-        msg = `Error in addProduct function. Caused by ${error}`;
+        msg = `Error in addProductRepository function. Caused by ${error}`;
         console.error(`${msg}. Stack error type : ${error.stack}`);
         product = statusName.CONNECTION_ERROR;
     }

@@ -15,7 +15,7 @@ let msg: string
  * @returns a Product according to his id
  * @example
  */
-export const getById = async function (id: number) {
+export const getByIdProductRepository = async function (id: number) {
   try {
     product = null;
     msg = null;
@@ -45,7 +45,7 @@ export const getById = async function (id: number) {
 
     return product;
   } catch (error) {
-    msg = `Error in getById function. Caused by ${error}`;
+    msg = `Error in getByIdProductRepository function. Caused by ${error}`;
     console.error(`${msg}. Stack error type : ${error.stack}`);
     product = statusName.CONNECTION_ERROR;
   }
@@ -58,7 +58,7 @@ export const getById = async function (id: number) {
  * @returns a Product according to his id
  * @example
  */
-export const getByIdWithoutDate = async function (id: number) {
+export const getByIdProductRepositoryWithoutDate = async function (id: number) {
   try {
     product = null;
     msg = null;
@@ -85,7 +85,7 @@ export const getByIdWithoutDate = async function (id: number) {
 
     return product;
   } catch (error) {
-    msg = `Error in getByIdWithoutDate function. Caused by ${error}`;
+    msg = `Error in getByIdProductRepositoryWithoutDate function. Caused by ${error}`;
     console.error(`${msg}. Stack error type : ${error.stack}`);
     product = statusName.CONNECTION_ERROR;
   }
