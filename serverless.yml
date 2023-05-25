@@ -59,7 +59,7 @@ functions:
           method: GET
           private: true
   getAllProduct:
-    handler: src/controllers/product/getAllProduct.handler
+    handler: src/controllers/product/getAllProductController.handler
     description: lambda function to get all paginated products from the database
     events:
       - http:

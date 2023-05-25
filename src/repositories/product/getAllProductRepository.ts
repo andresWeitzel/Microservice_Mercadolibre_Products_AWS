@@ -16,7 +16,7 @@ let msg: string;
  * @param {Object} orderBy Array Object type
  * @returns a list of paginated products
  */
-export const getAll = async function (pageSizeNro: number, pageNro: number, orderBy: any) {
+export const getAllProductRepository = async function (pageSizeNro: number, pageNro: number, orderBy: any) {
     try {
         //Init
         product = null;
@@ -38,7 +38,7 @@ export const getAll = async function (pageSizeNro: number, pageNro: number, orde
                     product = findProduct;
                 })
                 .catch((error) => {
-                    msg = `Error in get all paginated products. Caused by ${error}`;
+                    msg = `Error in GET ALL PRODUCT REPOSITORY FUNCTION. Caused by ${error}`;
                     console.error(`${msg}. Stack error type : ${error.stack}`);
                     product = statusName.CONNECTION_REFUSED;
                 });
@@ -47,7 +47,7 @@ export const getAll = async function (pageSizeNro: number, pageNro: number, orde
         }
         return product;
     } catch (error) {
-        msg = `Error in getAll function. Caused by ${error}`;
+        msg = `Error in GET ALL PRODUCT REPOSITORY FUNCTION. Caused by ${error}`;
         console.error(`${msg}. Stack error type : ${error.stack}`);
         product = statusName.CONNECTION_ERROR;
     }
