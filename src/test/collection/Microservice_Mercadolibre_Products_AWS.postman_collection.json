@@ -317,13 +317,13 @@
 									}
 								],
 								"url": {
-									"raw": "{{base_url}}/v1/products/id/12",
+									"raw": "{{base_url}}/v1/products-specifications/id/12",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"v1",
-										"products",
+										"products-specifications",
 										"id",
 										"12"
 									]
@@ -353,13 +353,13 @@
 									}
 								],
 								"url": {
-									"raw": "{{base_url}}/v1/products/list?page=0&limit=10",
+									"raw": "{{base_url}}/v1/products-specifications/list?page=0&limit=10",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"v1",
-										"products",
+										"products-specifications",
 										"list"
 									],
 									"query": [
@@ -419,6 +419,201 @@
 										"products-specifications",
 										"add",
 										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Products-specifications-s3",
+			"item": [
+				{
+					"name": "GET",
+					"item": [
+						{
+							"name": "db-connection",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{bearer_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "x-api-key",
+										"value": "{{x-api-key}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/v1/products/db-connection",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"v1",
+										"products",
+										"db-connection"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-by-id-product",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{x-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{bearer_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/v1/products-specifications/id/12",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"v1",
+										"products-specifications",
+										"id",
+										"12"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-all-product",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "{{x-api-key}}",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{bearer_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/v1/products-specifications/list?page=0&limit=10",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"v1",
+										"products-specifications",
+										"list"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "POST",
+					"item": [
+						{
+							"name": "add-product-specification-s3",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"content-type": true
+								}
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{bearer_token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "x-api-key",
+										"value": "{{x-api-key}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "pdf_file",
+											"type": "file",
+											"src": "/C:/Users/andre/Downloads/listaProductos.pdf"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/v1/products-specifications-s3/add/a4b228ec-7abe-4487-9825-85a883fc48d5",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"v1",
+										"products-specifications-s3",
+										"add",
+										"a4b228ec-7abe-4487-9825-85a883fc48d5"
 									]
 								}
 							},
