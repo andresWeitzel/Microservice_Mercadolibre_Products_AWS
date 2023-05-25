@@ -2,23 +2,18 @@
 import { ProductSpecification } from "src/models/Products/ProductSpecification";
 //Enums
 import { statusCode } from "src/enums/http/statusCode";
-import { statusName } from "src/enums/connection/statusName";
+//Services
+import { addProductSpecifService } from "src/services/productSpecification.ts/addProductSpecifService";
 //Helpers
 import { requestResult } from "src/helpers/http/bodyResponse";
 import { currentDateTime } from "src/helpers/dateTime/dates";
-import { validateProductSpecificationObject } from "src/helpers/validations/models/validateProductSpecifObject";
 import { validatePathParameters } from "src/helpers/http/queryStringParams";
 import { generateUuidV4 } from "src/helpers/math/generateUuid";
 import { formatToBigint } from "src/helpers/format/formatToNumber";
-import { addProductSpecification } from "src/services/productSpecification.ts/addProductSpecification";
 import { validateHeadersAndKeys } from "src/helpers/validations/headers/validateHeadersAndKeys";
-
-
-
 //Const/Vars
 let eventHeaders: any;
 let checkEventHeadersAndKeys: any;
-let validateBodyAddObject;
 let validatePathParams: boolean;
 let newProductSpecification: any;
 let productId: number;
@@ -52,7 +47,6 @@ module.exports.handler = async (event: any) => {
     if (checkEventHeadersAndKeys != null) {
       return checkEventHeadersAndKeys;
     }
-
     //-- end with validation headers and keys ---
 
     //-- start with path parameters  ---
@@ -68,7 +62,7 @@ module.exports.handler = async (event: any) => {
     }
     //-- end with path parameters  ---
 
-    //-- start with validation object  ---
+    //-- start with db operation  ---
     productId = await formatToBigint(productId);
     specificationUuid = await generateUuidV4();
     dateNow = await currentDateTime();
@@ -78,45 +72,14 @@ module.exports.handler = async (event: any) => {
 
     objProductSpecification = new ProductSpecification(productId, specificationUuid, stopTime, creationDate, updateDate);
 
-    validateBodyAddObject = await validateProductSpecificationObject(objProductSpecification);
+    newProductSpecification = await addProductSpecifService(objProductSpecification);
 
-    if (validateBodyAddObject.length) {
-      return await requestResult(
-        statusCode.BAD_REQUEST,
-        `Bad request, check request attributes. Validate the following : ${validateBodyAddObject}`
-      );
-    }
-    // -- end with validation object  ---
+    return newProductSpecification;
 
+    //-- end with db operation  ---
 
-    //-- start with db query  ---
-
-    newProductSpecification = await addProductSpecification(objProductSpecification);
-
-    if (newProductSpecification == statusName.CONNECTION_REFUSED) {
-      return await requestResult(
-        statusCode.INTERNAL_SERVER_ERROR,
-        "ECONNREFUSED. An error has occurred with the connection or query to the database. Verify that it is active, available, id is valid or exist"
-      );
-    }
-    else if (newProductSpecification == statusName.CONNECTION_ERROR) {
-      return await requestResult(
-        statusCode.INTERNAL_SERVER_ERROR,
-        "ERROR. An error has occurred in the process operations and queries with the database. Try again"
-      );
-    }
-    else if (newProductSpecification == null) {
-      return await requestResult(
-        statusCode.INTERNAL_SERVER_ERROR,
-        "Bad request, could not add user. Check the values of each attribute and try again"
-      );
-    } else {
-      return await requestResult(statusCode.OK, newProductSpecification);
-    }
-
-    //-- end with db query  ---
   } catch (error) {
-    msg = `Error in addProductSpecification lambda. Caused by ${error}`;
+    msg = `Error in ADD PRODUCT SPECIFICATION CONTROLLER lambda. Caused by ${error}`;
     code = statusCode.INTERNAL_SERVER_ERROR;
     console.error(`${msg}. Stack error type : ${error.stack}`);
 

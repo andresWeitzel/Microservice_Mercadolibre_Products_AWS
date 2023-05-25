@@ -41,7 +41,7 @@ export const addProductRepository = async function (inputProduct: Product) {
                     product = productItem;
                 })
                 .catch(error => {
-                    msg = `Error in create product sequelize model. Caused by ${error}`;
+                    msg = `Error in ADD PRODUCT REPOSITORY function. Caused by ${error}`;
                     console.error(`${msg}. Stack error type : ${error.stack}`);
                     product = statusName.CONNECTION_REFUSED;
                 })
@@ -51,7 +51,7 @@ export const addProductRepository = async function (inputProduct: Product) {
 
         return product;
     } catch (error) {
-        msg = `Error in addProductRepository function. Caused by ${error}`;
+        msg = `Error in ADD PRODUCT REPOSITORY function. Caused by ${error}`;
         console.error(`${msg}. Stack error type : ${error.stack}`);
         product = statusName.CONNECTION_ERROR;
     }

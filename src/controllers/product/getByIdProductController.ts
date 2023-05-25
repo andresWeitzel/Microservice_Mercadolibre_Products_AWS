@@ -45,7 +45,7 @@ module.exports.handler = async (event: any) => {
         //-- end with db query  ---
 
     } catch (error) {
-        msg = `Error in getByIdProductController lambda. Caused by ${error}`;
+        msg = `Error in GET BY ID PRODUCT CONTROLLER  lambda. Caused by ${error}`;
         code = statusCode.INTERNAL_SERVER_ERROR;
         console.error(`${msg}. Stack error type : ${error.stack}`);
 

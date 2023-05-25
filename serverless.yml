@@ -68,8 +68,7 @@ functions:
           private: true       
   #PRODUCT_SPECIFICATION
   addProductSpecification:
-    handler: src/controllers/productSpecification/addProductSpecification.handler
-    name: addProductSpecification
+    handler: src/controllers/productSpecification/addProductSpecificationController.handler
     description: Function to store an product specification object inside the database for have a reference to s3 bucket
     events:
       - http:

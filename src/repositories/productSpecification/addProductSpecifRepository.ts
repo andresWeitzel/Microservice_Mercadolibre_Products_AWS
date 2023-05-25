@@ -14,7 +14,7 @@ let msg:string;
  * @param {Object} inputProduct Object type
  * @returns a json object with the transaction performed
  */
-export const addProductSpecification = async function (inputProduct: ProductSpecification) {
+export const addProductSpecifRepository = async function (inputProduct: ProductSpecification) {
     try {
         productSpecification = null;
         msg = null;
@@ -33,7 +33,7 @@ export const addProductSpecification = async function (inputProduct: ProductSpec
                     productSpecification = productItem;
                 })
                 .catch(error => {
-                    msg = `Error in create product specification sequelize model. Caused by ${error}`;
+                    msg = `Error ADD PRODUCT SPECIFICATION REPOSITORY. Caused by ${error}`;
                     console.error(`${msg}. Stack error type : ${error.stack}`);
                     productSpecification = statusName.CONNECTION_REFUSED;
                 })
@@ -43,7 +43,7 @@ export const addProductSpecification = async function (inputProduct: ProductSpec
 
         return productSpecification;
     } catch (error) {
-        msg = `Error in addProductSpecification function. Caused by ${error}`;
+        msg = `Error in ADD PRODUCT SPECIFICATION REPOSITORY function. Caused by ${error}`;
         console.error(`${msg}. Stack error type : ${error.stack}`);
         productSpecification = statusName.CONNECTION_ERROR;
     }

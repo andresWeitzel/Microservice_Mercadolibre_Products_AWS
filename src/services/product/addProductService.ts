@@ -8,10 +8,13 @@ import { statusCode } from "src/enums/http/statusCode";
 import { requestResult } from "src/helpers/http/bodyResponse";
 //Repository
 import { addProductRepository } from "src/repositories/product/addProductRepository";
+import { validateProductObject } from "src/helpers/validations/models/validateProductObject";
 //Const/Vars
 let newProduct: any;
+let validateObject: any;
 let msg: string;
-let code:number;
+let code: number;
+
 
 
 /**
@@ -21,6 +24,19 @@ let code:number;
  */
 export const addProductService = async function (inputProduct: Product) {
     try {
+
+        //-- start with validation object  ---
+        validateObject = await validateProductObject(inputProduct);
+
+        if (validateObject.length) {
+            return await requestResult(
+                statusCode.BAD_REQUEST,
+                `Bad request, check request attributes. Validate the following : ${validateObject}`
+            );
+        }
+        //-- end with validation object  ---
+
+        //-- start with db operations  ---
 
         newProduct = await addProductRepository(inputProduct);
 
@@ -47,12 +63,13 @@ export const addProductService = async function (inputProduct: Product) {
             statusCode.OK,
             newProduct
         );
+        //-- end with db operations  ---
 
     } catch (error) {
-        msg = `Error in addProduct Service . Caused by ${error}`;
+        msg = `Error in ADD PRODUCT SERVICE . Caused by ${error}`;
         code = statusCode.INTERNAL_SERVER_ERROR;
         console.error(`${msg}. Stack error type : ${error.stack}`);
-    
+
         return await requestResult(code, msg);
     }
 }

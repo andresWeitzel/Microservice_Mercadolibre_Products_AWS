@@ -15,7 +15,7 @@ let addedProductSpecificationObject;
             "update_date": "2023-05-21 17:06:03"
         }
  */
-export const getAddedProductSpecificationObject = async (url: string, body: any, headers: any) => {
+export const getAddedProductSpecifAxios = async (url: string, body: any, headers: any) => {
     try {
         addedProductSpecificationObject = null;
         addedProductSpecificationObject = await axios.post(url, body, headers).then(addedProductSpecificationObject => addedProductSpecificationObject)

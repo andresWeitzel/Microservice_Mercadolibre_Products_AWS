@@ -35,7 +35,7 @@ export const getByIdProductRepository = async function (id: number) {
           product = findProduct;
         })
         .catch((error) => {
-          msg = `Error in get product according to your id. Caused by ${error}`;
+          msg = `Error in GET BY ID PRODUCT REPOSITORY function. Caused by ${error}`;
           console.error(`${msg}. Stack error type : ${error.stack}`);
           product = statusName.CONNECTION_REFUSED;
         });
@@ -45,7 +45,7 @@ export const getByIdProductRepository = async function (id: number) {
 
     return product;
   } catch (error) {
-    msg = `Error in getByIdProductRepository function. Caused by ${error}`;
+    msg = `Error in GET BY ID PRODUCT REPOSITORY function. Caused by ${error}`;
     console.error(`${msg}. Stack error type : ${error.stack}`);
     product = statusName.CONNECTION_ERROR;
   }
@@ -75,7 +75,7 @@ export const getByIdProductRepositoryWithoutDate = async function (id: number) {
           product = findProduct;
         })
         .catch((error) => {
-          msg = `Error in get product according to your id. Caused by ${error}`;
+          msg = `Error in GET BY ID PRODUCT WITHOUT DATE  REPOSITORY function. Caused by ${error}`;
           console.error(`${msg}. Stack error type : ${error.stack}`);
           product = statusName.CONNECTION_REFUSED;
         });
@@ -85,7 +85,7 @@ export const getByIdProductRepositoryWithoutDate = async function (id: number) {
 
     return product;
   } catch (error) {
-    msg = `Error in getByIdProductRepositoryWithoutDate function. Caused by ${error}`;
+    msg = `Error in GET BY ID PRODUCT WITHOUT DATE REPOSITORY function. Caused by ${error}`;
     console.error(`${msg}. Stack error type : ${error.stack}`);
     product = statusName.CONNECTION_ERROR;
   }
