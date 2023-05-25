@@ -43,19 +43,19 @@ export const addProductSpecifService = async function (inputProductSpecif: Produ
     if (newProductSpecification == statusName.CONNECTION_REFUSED) {
       return await requestResult(
         statusCode.INTERNAL_SERVER_ERROR,
-        "ECONNREFUSED. An error has occurred with the connection or query to the database. Verify that it is active, available, id is valid or exist"
+        "ECONNREFUSED. An error has occurred with the connection or query to the database. Verify that it is active, available, id is valid or exist. NOTE: the product id must be unique"
       );
     }
     else if (newProductSpecification == statusName.CONNECTION_ERROR) {
       return await requestResult(
         statusCode.INTERNAL_SERVER_ERROR,
-        "ERROR. An error has occurred in the process operations and queries with the database. Try again"
+        "ERROR. An error has occurred in the process operations and queries with the database. NOTE: the product id must be unique"
       );
     }
     else if (newProductSpecification == null) {
       return await requestResult(
         statusCode.INTERNAL_SERVER_ERROR,
-        "Bad request, could not add user. Check the values of each attribute and try again"
+        "Bad request, could not add user. Check the values of each attribute and try again. NOTE: the product id must be unique"
       );
     } else {
       return await requestResult(statusCode.OK, newProductSpecification);

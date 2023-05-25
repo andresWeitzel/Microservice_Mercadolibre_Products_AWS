@@ -1,7 +1,7 @@
 //External
 import axios from 'axios';
 //Const-vars
-let addedProductSpecificationObject;
+let addedProductSpecificationObject:any;
 
 /**
  * @description send a request and get an object to the database

@@ -20,7 +20,7 @@ let msg: string
  * @returns a Product according to his title and creation date
  * @example
  */
-export const getLikeCreationDateAndTitle = async function (title: string, creationDate:string) {
+export const getLikeCreatDateAndTitleProdRepository = async function (title: string, creationDate:string) {
   try {
     product = null;
     msg = null;
@@ -49,7 +49,7 @@ export const getLikeCreationDateAndTitle = async function (title: string, creati
           product = findProduct;
         })
         .catch((error) => {
-          msg = `Error in get getLikeCreationDateAndTitle product according to your title and creation_date. Caused by ${error}`;
+          msg = `Error in GET LIKE CREATION DATE AND TITLE PRODUCT REPOSITORY function. Caused by ${error}`;
           console.error(`${msg}. Stack error type : ${error.stack}`);
           product = statusName.CONNECTION_REFUSED;
         });
@@ -59,9 +59,12 @@ export const getLikeCreationDateAndTitle = async function (title: string, creati
 
     return product;
   } catch (error) {
-    msg = `Error in getLikeCreationDateAndTitle function. Caused by ${error}`;
+    msg = `Error in GET LIKE CREATION DATE AND TITLE PRODUCT REPOSITORY function. Caused by ${error}`;
     console.error(`${msg}. Stack error type : ${error.stack}`);
     product = statusName.CONNECTION_ERROR;
   }
 };
+
+
+
 

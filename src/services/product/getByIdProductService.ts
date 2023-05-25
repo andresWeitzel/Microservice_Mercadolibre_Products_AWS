@@ -31,7 +31,7 @@ export const getByIdProductService = async function (inputProductId: number) {
     }
     //-- end with check path parameters  ---
 
-    //-- start with db query  ---
+    //-- start with db operations  ---
     product = await getByIdProductRepository(inputProductId);
     //product = await getByIdWithoutDate(productId);
 
@@ -47,7 +47,7 @@ export const getByIdProductService = async function (inputProductId: number) {
         "ERROR. An error has occurred in the process operations and queries with the database. Try again"
       );
     }
-    else if (product == null) {
+    else if (product == null || !(product.length)) {
       return await requestResult(
         statusCode.INTERNAL_SERVER_ERROR,
         "Bad request, could not get product according to the given ID. Check the ID and try again"
@@ -55,9 +55,9 @@ export const getByIdProductService = async function (inputProductId: number) {
     } else {
       return await requestResult(statusCode.OK, product);
     }
-    //-- end with db query  ---
+    //-- end with db operations  ---
   } catch (error) {
-    msg = `Error in getByIdProductService function. Caused by ${error}`;
+    msg = `Error in GET BY ID PRODUCT SERVICE function. Caused by ${error}`;
     console.error(`${msg}. Stack error type : ${error.stack}`);
     product = statusName.CONNECTION_ERROR;
   }

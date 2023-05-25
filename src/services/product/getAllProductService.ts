@@ -36,7 +36,7 @@ export const getAllProductService = async function (inputPageSizeNro: number, in
                 "ERROR. An error has occurred in the process operations and queries with the database. Try again"
             );
         }
-        else if (productList == null) {
+        else if (productList == null || !(productList.length)) {
             return await requestResult(
                 statusCode.INTERNAL_SERVER_ERROR,
                 "Bad request, could not get a paginated product list. Check the ID and try again"

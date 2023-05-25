@@ -4,10 +4,10 @@ import { Product } from "src/models/Products/Product";
 //Enums
 import { statusName } from "src/enums/connection/statusName";
 import { statusCode } from "src/enums/http/statusCode";
+//Repositories
+import { addProductRepository } from "src/repositories/product/addProductRepository";
 //Helpers
 import { requestResult } from "src/helpers/http/bodyResponse";
-//Repository
-import { addProductRepository } from "src/repositories/product/addProductRepository";
 import { validateProductObject } from "src/helpers/validations/models/validateProductObject";
 //Const/Vars
 let newProduct: any;
@@ -43,26 +43,27 @@ export const addProductService = async function (inputProduct: Product) {
         if (newProduct == statusName.CONNECTION_REFUSED) {
             return await requestResult(
                 statusCode.INTERNAL_SERVER_ERROR,
-                "ECONNREFUSED. An error has occurred with the connection or query to the database. Verify that it is active or available"
+                "ECONNREFUSED. An error has occurred with the connection or query to the database. Verify that it is active or available. NOTE: the title together with the subtitle must be unique"
             );
         }
         else if (newProduct == statusName.CONNECTION_ERROR) {
             return await requestResult(
                 statusCode.INTERNAL_SERVER_ERROR,
-                "ERROR. An error has occurred in the process operations and queries with the database. Try again"
+                "ERROR. An error has occurred in the process operations and queries with the database. NOTE: the title together with the subtitle must be unique"
             );
         }
-        else if (newProduct == null) {
+        else if (newProduct == null || !(newProduct.length)) {
             return await requestResult(
                 statusCode.INTERNAL_SERVER_ERROR,
-                "Bad request, could not add user. Check the values of each attribute and try again"
+                "Bad request, could not add user. Check the values of each attribute and try again. NOTE: the title together with the subtitle must be unique"
+            );
+        } else {
+            return await requestResult(
+                statusCode.OK,
+                newProduct
             );
         }
 
-        return await requestResult(
-            statusCode.OK,
-            newProduct
-        );
         //-- end with db operations  ---
 
     } catch (error) {
