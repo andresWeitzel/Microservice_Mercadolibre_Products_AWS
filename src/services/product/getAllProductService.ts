@@ -24,26 +24,27 @@ export const getAllProductService = async function (inputPageSizeNro: number, in
         productList = await getAllProductRepository(inputPageSizeNro, inputPageNro, inputOrderBy);
         // userList = await getAllWithoutDate(inputPageSizeNro, inputPageNro, inputOrderBy);
 
-        if (productList == statusName.CONNECTION_REFUSED) {
-            return await requestResult(
+        switch (productList) {
+            case statusName.CONNECTION_REFUSED:
+              return await requestResult(
                 statusCode.INTERNAL_SERVER_ERROR,
                 "ECONNREFUSED. An error has occurred with the connection or query to the database. Verify that it is active or available"
-            );
-        }
-        else if (productList == statusName.CONNECTION_ERROR) {
-            return await requestResult(
+              );
+            case statusName.CONNECTION_ERROR:
+              return await requestResult(
                 statusCode.INTERNAL_SERVER_ERROR,
                 "ERROR. An error has occurred in the process operations and queries with the database. Try again"
-            );
-        }
-        else if (productList == null || !(productList.length)) {
-            return await requestResult(
-                statusCode.INTERNAL_SERVER_ERROR,
+              );
+            case null || undefined:
+              return await requestResult(
+                statusCode.BAD_REQUEST,
                 "Bad request, could not get a paginated product list. Try again"
-            );
-        } else {
-            return await requestResult(statusCode.OK, productList);
-        }
+              );
+            default:
+              return await requestResult(statusCode.OK, productList);
+          }
+
+
         //-- end with db query  ---
 
 

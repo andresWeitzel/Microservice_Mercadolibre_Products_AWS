@@ -40,29 +40,25 @@ export const addProductService = async function (inputProduct: Product) {
 
         newProduct = await addProductRepository(inputProduct);
 
-        if (newProduct == statusName.CONNECTION_REFUSED) {
-            return await requestResult(
+        switch (newProduct) {
+            case statusName.CONNECTION_REFUSED:
+              return await requestResult(
                 statusCode.INTERNAL_SERVER_ERROR,
                 "ECONNREFUSED. An error has occurred with the connection or query to the database. Verify that it is active or available. NOTE: the title together with the subtitle must be unique"
-            );
-        }
-        else if (newProduct == statusName.CONNECTION_ERROR) {
-            return await requestResult(
+              );
+            case statusName.CONNECTION_ERROR:
+              return await requestResult(
                 statusCode.INTERNAL_SERVER_ERROR,
                 "ERROR. An error has occurred in the process operations and queries with the database. NOTE: the title together with the subtitle must be unique"
-            );
-        }
-        else if (newProduct == null || !(newProduct.length)) {
-            return await requestResult(
-                statusCode.INTERNAL_SERVER_ERROR,
+              );
+            case null || undefined:
+              return await requestResult(
+                statusCode.BAD_REQUEST,
                 "Bad request, could not add user. Check the values of each attribute and try again. NOTE: the title together with the subtitle must be unique"
-            );
-        } else {
-            return await requestResult(
-                statusCode.OK,
-                newProduct
-            );
-        }
+              );
+            default:
+              return await requestResult(statusCode.OK, newProduct);
+          }
 
         //-- end with db operations  ---
 

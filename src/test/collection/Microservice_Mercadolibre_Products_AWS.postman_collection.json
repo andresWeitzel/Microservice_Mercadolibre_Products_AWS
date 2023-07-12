@@ -13,51 +13,6 @@
 					"name": "GET",
 					"item": [
 						{
-							"name": "db-connection",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "{{bearer_token}}",
-										"type": "text"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "x-api-key",
-										"value": "{{x-api-key}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{base_url}}/v1/products/db-connection",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"v1",
-										"products",
-										"db-connection"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "get-by-id-product",
 							"request": {
 								"method": "GET",
@@ -79,7 +34,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{base_url}}/v1/products/id/12",
+									"raw": "{{base_url}}/v1/products/id/3",
 									"host": [
 										"{{base_url}}"
 									],
@@ -87,7 +42,7 @@
 										"v1",
 										"products",
 										"id",
-										"12"
+										"3"
 									]
 								}
 							},

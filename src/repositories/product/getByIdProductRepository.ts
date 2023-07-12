@@ -11,11 +11,11 @@ let msg: string
 
 /**
  * @description Get a product with all the attributes from the database according to the id passed as a parameter
- * @param {Number} id Number type
+ * @param {any} id any type
  * @returns a Product according to his id
  * @example
  */
-export const getByIdProductRepository = async function (id: number) {
+export const getByIdProductRepository = async function (id: any) {
   try {
     product = null;
     msg = null;
@@ -54,11 +54,11 @@ export const getByIdProductRepository = async function (id: number) {
 
 /**
  * @description Get a product with all the attributes without date from the database according to the id passed as a parameter
- * @param {Number} id Number type
+ * @param {any} id any type
  * @returns a Product according to his id
  * @example
  */
-export const getByIdProductRepositoryWithoutDate = async function (id: number) {
+export const getByIdProductRepositoryWithoutDate = async function (id: any) {
   try {
     product = null;
     msg = null;

@@ -13,11 +13,11 @@ let validatePathParams: boolean;
 
 /**
  * @description Get a product with all the attributes from the database according to the id passed as a parameter
- * @param {Number} inputProductId Number type
+ * @param {any} inputProductId Number type
  * @returns a Product according to his id
  * @example
  */
-export const getByIdProductService = async function (inputProductId: number) {
+export const getByIdProductService = async function (inputProductId: any) {
   try {
     //-- start with check path parameters  ---
 
@@ -47,7 +47,7 @@ export const getByIdProductService = async function (inputProductId: number) {
         "ERROR. An error has occurred in the process operations and queries with the database. Try again"
       );
     }
-    else if (product == null || !(product.length)) {
+    else if (product == (null || undefined)) {
       return await requestResult(
         statusCode.INTERNAL_SERVER_ERROR,
         "Bad request, could not get product according to the given ID. Check the ID and try again"

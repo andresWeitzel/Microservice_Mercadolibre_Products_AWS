@@ -52,7 +52,7 @@ export const addProductSpecifService = async function (inputProductSpecif: Produ
         "ERROR. An error has occurred in the process operations and queries with the database. NOTE: the product id must be unique"
       );
     }
-    else if (newProductSpecification == null) {
+    else if (newProductSpecification == (null || undefined)) {
       return await requestResult(
         statusCode.INTERNAL_SERVER_ERROR,
         "Bad request, could not add user. Check the values of each attribute and try again. NOTE: the product id must be unique"

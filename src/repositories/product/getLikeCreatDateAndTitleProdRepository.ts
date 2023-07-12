@@ -39,7 +39,7 @@ export const getLikeCreatDateAndTitleProdRepository = async function (title: str
               [Op.like]: `%${creationDate}%`
           },
           title: {
-            [Op.like]: `%${title}%`
+            [Op.eq]: title
           }
       },
         limit: 1,

@@ -115,7 +115,10 @@ module.exports.handler = async (event: any) => {
       if (addedProductObject.statusCode != statusCode.OK) {
         return addedProductObject;
       }
-      idAddedProductObject = await addedProductObject[0].dataValues.id;
+
+      idAddedProductObject = JSON.parse(addedProductObject.body);
+
+      idAddedProductObject = idAddedProductObject.message[0].id;
 
       const PRODUCT_SPECIFICATION_ENDPOINT = `http://${process.env.API_HOST}:${process.env.API_PORT}/${process.env.API_STAGE}/${process.env.API_VERSION}/${process.env.API_ENDPOINT_PRODUCTS_SPECIFICATIONS_NAME}/add/${idAddedProductObject}`;
 
