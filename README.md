@@ -183,7 +183,7 @@ serverless create --template aws-nodejs-typescript
 ```
 * Comprobamos la versión de typescript
 ```git
-serverless create --template aws-nodejs-typescript
+tsc -v
 ```
 * Instalamos los paquetes necesarios
 ```git
