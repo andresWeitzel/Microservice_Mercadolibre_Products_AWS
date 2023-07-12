@@ -40,26 +40,26 @@ export const addProductSpecifService = async function (inputProductSpecif: Produ
 
     newProductSpecification = await addProductSpecifRepository(inputProductSpecif);
 
-    if (newProductSpecification == statusName.CONNECTION_REFUSED) {
-      return await requestResult(
-        statusCode.INTERNAL_SERVER_ERROR,
-        "ECONNREFUSED. An error has occurred with the connection or query to the database. Verify that it is active, available, id is valid or exist. NOTE: the product id must be unique"
-      );
+    switch (newProductSpecification) {
+      case statusName.CONNECTION_REFUSED:
+        return await requestResult(
+          statusCode.INTERNAL_SERVER_ERROR,
+          "ECONNREFUSED. An error has occurred with the connection or query to the database. Verify that it is active, available, id is valid or exist. NOTE: the product id must be unique"
+        );
+      case statusName.CONNECTION_ERROR:
+        return await requestResult(
+          statusCode.INTERNAL_SERVER_ERROR,
+          "ERROR. An error has occurred in the process operations and queries with the database. NOTE: the product id must be unique"
+        );
+      case null || undefined:
+        return await requestResult(
+          statusCode.BAD_REQUEST,
+          "Bad request, could not add user. Check the values of each attribute and try again. NOTE: the product id must be unique"
+        );
+      default:
+        return await requestResult(statusCode.OK, newProductSpecification);
     }
-    else if (newProductSpecification == statusName.CONNECTION_ERROR) {
-      return await requestResult(
-        statusCode.INTERNAL_SERVER_ERROR,
-        "ERROR. An error has occurred in the process operations and queries with the database. NOTE: the product id must be unique"
-      );
-    }
-    else if (newProductSpecification == (null || undefined)) {
-      return await requestResult(
-        statusCode.INTERNAL_SERVER_ERROR,
-        "Bad request, could not add user. Check the values of each attribute and try again. NOTE: the product id must be unique"
-      );
-    } else {
-      return await requestResult(statusCode.OK, newProductSpecification);
-    }
+
     //-- end with db operation  ---
   } catch (error) {
     msg = `Error in ADD PRODUCT SPECIFICATION SERVICE function. Caused by ${error}`;

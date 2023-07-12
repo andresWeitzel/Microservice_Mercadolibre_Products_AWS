@@ -21,26 +21,27 @@ export const getLikeCreatDateAndTitleProdService = async function (title: string
      //-- start with db operations  ---
      product = await getLikeCreatDateAndTitleProdRepository(title, creationDate);
  
-     if (product == statusName.CONNECTION_REFUSED) {
-       return await requestResult(
-         statusCode.INTERNAL_SERVER_ERROR,
-         "ECONNREFUSED. An error has occurred with the connection or query to the database. Verify that it is active or available"
-       );
-     }
-     else if (product == statusName.CONNECTION_ERROR) {
-       return await requestResult(
-         statusCode.INTERNAL_SERVER_ERROR,
-         "ERROR. An error has occurred in the process operations and queries with the database. Try again"
-       );
-     }
-     else if (product == null || !(product.length)) {
-       return await requestResult(
-         statusCode.INTERNAL_SERVER_ERROR,
-         "Bad request, could not get product according to the given title and creation date. Check the ID and try again"
-       );
-     } else {
-       return await requestResult(statusCode.OK, product);
-     }
+     switch (product) {
+      case statusName.CONNECTION_REFUSED:
+        return await requestResult(
+          statusCode.INTERNAL_SERVER_ERROR,
+          "ECONNREFUSED. An error has occurred with the connection or query to the database. Verify that it is active or available"
+        );
+      case statusName.CONNECTION_ERROR:
+        return await requestResult(
+          statusCode.INTERNAL_SERVER_ERROR,
+          "ERROR. An error has occurred in the process operations and queries with the database. Try again"
+        );
+      case null || undefined:
+        return await requestResult(
+          statusCode.BAD_REQUEST,
+          "Bad request, could not get product according to the given CREATION DATE AND TITLE. Check the this and try again"
+        );
+      default:
+        return await requestResult(statusCode.OK, product);
+    }
+
+
      //-- end with db operations  ---
   
   } catch (error) {
