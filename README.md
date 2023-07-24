@@ -92,62 +92,19 @@ sls -v
 npm i
 ```
 
-*   Creamos un archivo para almacenar las variables ssm utilizadas en el proyecto (Más allá que sea un proyecto con fines no comerciales es una buena práctica utilizar variables de entorno).
-    *   Click der sobre la raíz del proyecto
-    *   New file
-    *   Creamos el archivo con el name `serverless_ssm.yml`. Este deberá estar a la misma altura que el serverless.yml
-    *   Añadimos las ssm necesarias dentro del archivo.
-    ```git
-      # Keys
-      X_API_KEY : 'f98d8cd98h73s204e3456998ecl9427j'
-      BEARER_TOKEN : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+*   Las variables ssm utilizadas en el proyecto se mantienen para simplificar el proceso de configuración del mismo. Es recomendado agregar el archivo correspondiente (serverless\_ssm.yml) al .gitignore.
 
-      # API VALUES
-      API_HOST : 'localhost'
-      API_PORT: '4000'
-      API_STAGE: 'dev'
-      API_VERSION : 'v1'
-      API_ENDPOINT_PRODUCTS_NAME : 'products'
-      API_ENDPOINT_PRODUCTS_SPECIFICATIONS_NAME : 'products-specifications'
-      API_ENDPOINT_PRODUCTS_SPECIFICATIONS_S3_NAME : 'products-specifications-s3'
-
-      # Database
-      DATABASE_NAME : 'microdb_mercadolibre_productos'
-      DATABASE_USER : 'root'
-      DATABASE_PASSWORD : ''
-      DATABASE_HOST : '127.0.0.1'
-      DATABASE_DIALECT : 'mysql'
-      DATABASE_POOL_MAX : 5
-      DATABASE_POOL_MIN : 0
-      DATABASE_POOL_ACQUIRE : 30000
-      DATABASE_POOL_IDLE : 10000
-
-      #Products Specification Bucket s3
-      BUCKET_NAME: PRODUCTS_SPECIFICATIONS_BUCKET
-      BUCKET_KEY: productsSpecificationsBucketS3.json
-      # S3 Client
-      # This specific key is required when working offline
-      S3_CLIENT_ACCESS_KEY_ID: S3RVER
-      S3_CLIENT_SECRET_ACCESS_KEY: S3RVER
-      S3_CLIENT_ENDPOINT: http://localhost:4569
-          
-      # S3 Config
-      S3_HOST: localhostdir
-      S3_DIRECTORY: /AWS-S3/storage
-
-      # AWS credencials
-      REGION: us-east-1
-      AWS_ACCESS_KEY_ID : 123
-      AWS_SECRET_ACCESS_KEY: 123
-    ```
-*   El siguiente script configurado en el package.json del proyecto es el encargado de
-    *   Levantar serverless-offline (serverless-offline)
+*   El siguiente script configurado en el package.json del proyecto es el encargado de levantar de forma concurrente
+    *   El plugin de serverless-offline
+    *   El plugin remark-lint para archivos .md
 
 ```git
- "scripts": {
-   "serverless-offline": "sls offline start",
-   "start": "npm run serverless-offline"
- },
+  "scripts": {
+    "check": "remark . --quiet --frail",
+    "format": "remark . --quiet --frail --output",
+    "serverless-offline": "sls offline start",
+    "start": "concurrently --kill-others \"npm run serverless-offline\" \"npm run format\""
+  },
 ```
 
 *   Ejecutamos el proyecto desde terminal
@@ -274,20 +231,77 @@ npm i mysql2 --save
 npm i pg-hstore --save
 ```
 
-*   El siguiente script configurado en el package.json del proyecto es el encargado de
-    *   Levantar serverless-offline (serverless-offline)
+*   Descargamos el plugin para la ejecución de scripts de forma concurrente ([concurrently](https://www.npmjs.com/package/concurrently))
+
+````git
+npm i concurrently
+``
+
+* Configuraremos un formato estándar de archivos markdown para el proyecto a través de [remark-lint](https://github.com/remarkjs/remark-lint#example-check-markdown-on-the-api)
 
 ```git
- "scripts": {
-   "serverless-offline": "sls offline start",
-   "start": "npm run serverless-offline"
- },
-```
+npm install remark-cli remark-preset-lint-consistent remark-preset-lint-recommended remark-lint-list-item-indent --save-dev
 
-*   Ejecutamos el proyecto desde terminal
+npm install remark-lint-emphasis-marker remark-lint-strong-marker --save-dev
+``
+
+* Luego agregamos la configuración para los scripts desde el package.json
 
 ```git
-npm start
+"check": "remark . --quiet --frail",
+    "format-md": "remark . --quiet --frail --output",
+``
+* En mi caso, quiero que se aplique un autoformato por cada ejecución, aplico concurrently, quedando
+
+```json
+  "scripts": {
+    "check": "remark . --quiet --frail",
+    "format": "remark . --quiet --frail --output",
+    "serverless-offline": "sls offline start",
+    "start": "concurrently --kill-others \"npm run serverless-offline\" \"npm run format\""
+  },
+``
+* Luego agregamos los remark configs debajo de todo en el package.json
+
+```json
+ "remarkConfig": {
+    "settings": {
+      "emphasis": "*",
+      "strong": "*"
+    },
+    "plugins": [
+      "remark-preset-lint-consistent",
+      "remark-preset-lint-recommended",
+      [
+        "remark-lint-list-item-indent",
+        "tab-size"
+      ],
+      [
+        "remark-lint-emphasis-marker",
+        "*"
+      ],
+      [
+        "remark-lint-strong-marker",
+        "*"
+      ]
+    ]
+  }
+``
+* Para más información al respecto, visitar la [página oficial](https://github.com/remarkjs/remark-lint#example-check-markdown-on-the-api)
+
+*   Las variables ssm utilizadas en el proyecto se mantienen para simplificar el proceso de configuración del mismo. Es recomendado agregar el archivo correspondiente (serverless\_ssm.yml) al .gitignore.
+
+*   El siguiente script configurado en el package.json del proyecto es el encargado de levantar de forma concurrente
+    *   El plugin de serverless-offline
+    *   El plugin remark-lint para archivos .md
+
+```git
+  "scripts": {
+    "check": "remark . --quiet --frail",
+    "format": "remark . --quiet --frail --output",
+    "serverless-offline": "sls offline start",
+    "start": "concurrently --kill-others \"npm run serverless-offline\" \"npm run format\""
+  },
 ```
 
 <br>

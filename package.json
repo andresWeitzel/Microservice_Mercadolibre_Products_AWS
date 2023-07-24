@@ -7,7 +7,7 @@
     "check": "remark . --quiet --frail",
     "format": "remark . --quiet --frail --output",
     "serverless-offline": "sls offline start",
-    "start": "npm run serverless-offline"
+    "start": "concurrently --kill-others \"npm run serverless-offline\" \"npm run format\""
   },
   "engines": {
     "node": ">=14.15.0"
