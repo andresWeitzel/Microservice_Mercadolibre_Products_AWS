@@ -19,7 +19,7 @@ let pdfFile:string;
 let bucketContent:any;
 let msg: string;
 let code: number;
-
+  
 /**
  * @description add an object inside the s3 bucket 
  * @param {Object} event Object type
