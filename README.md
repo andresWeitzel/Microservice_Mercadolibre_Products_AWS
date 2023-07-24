@@ -233,25 +233,26 @@ npm i pg-hstore --save
 
 *   Descargamos el plugin para la ejecución de scripts de forma concurrente ([concurrently](https://www.npmjs.com/package/concurrently))
 
-````git
+```git
 npm i concurrently
-``
+```
 
-* Configuraremos un formato estándar de archivos markdown para el proyecto a través de [remark-lint](https://github.com/remarkjs/remark-lint#example-check-markdown-on-the-api)
+*   Configuraremos un formato estándar de archivos markdown para el proyecto a través de [remark-lint](https://github.com/remarkjs/remark-lint#example-check-markdown-on-the-api)
 
 ```git
 npm install remark-cli remark-preset-lint-consistent remark-preset-lint-recommended remark-lint-list-item-indent --save-dev
 
 npm install remark-lint-emphasis-marker remark-lint-strong-marker --save-dev
-``
+```
 
-* Luego agregamos la configuración para los scripts desde el package.json
+*   Luego agregamos la configuración para los scripts desde el package.json
 
 ```git
 "check": "remark . --quiet --frail",
     "format-md": "remark . --quiet --frail --output",
-``
-* En mi caso, quiero que se aplique un autoformato por cada ejecución, aplico concurrently, quedando
+```
+
+*   En mi caso, quiero que se aplique un autoformato por cada ejecución, aplico concurrently, quedando
 
 ```json
   "scripts": {
@@ -260,8 +261,9 @@ npm install remark-lint-emphasis-marker remark-lint-strong-marker --save-dev
     "serverless-offline": "sls offline start",
     "start": "concurrently --kill-others \"npm run serverless-offline\" \"npm run format\""
   },
-``
-* Luego agregamos los remark configs debajo de todo en el package.json
+```
+
+*   Luego agregamos los remark configs debajo de todo en el package.json
 
 ```json
  "remarkConfig": {
@@ -286,8 +288,9 @@ npm install remark-lint-emphasis-marker remark-lint-strong-marker --save-dev
       ]
     ]
   }
-``
-* Para más información al respecto, visitar la [página oficial](https://github.com/remarkjs/remark-lint#example-check-markdown-on-the-api)
+```
+
+*   Para más información al respecto, visitar la [página oficial](https://github.com/remarkjs/remark-lint#example-check-markdown-on-the-api)
 
 *   Las variables ssm utilizadas en el proyecto se mantienen para simplificar el proceso de configuración del mismo. Es recomendado agregar el archivo correspondiente (serverless\_ssm.yml) al .gitignore.
 
