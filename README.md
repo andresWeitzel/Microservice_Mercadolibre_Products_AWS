@@ -243,6 +243,8 @@ npm i concurrently
 npm install remark-cli remark-preset-lint-consistent remark-preset-lint-recommended remark-lint-list-item-indent --save-dev
 
 npm install remark-lint-emphasis-marker remark-lint-strong-marker --save-dev
+
+npm install remark-lint-table-cell-padding --save-dev
 ```
 
 *   Luego agregamos la configuración para los scripts desde el package.json
@@ -276,6 +278,7 @@ npm install remark-lint-emphasis-marker remark-lint-strong-marker --save-dev
     "plugins": [
       "remark-preset-lint-consistent",
       "remark-preset-lint-recommended",
+      "remark-lint-table-cell-padding",
       [
         "remark-lint-list-item-indent",
         "tab-size"
