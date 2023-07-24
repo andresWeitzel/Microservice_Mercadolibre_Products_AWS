@@ -94,29 +94,38 @@ npm i
 
 *   Las variables ssm utilizadas en el proyecto se mantienen para simplificar el proceso de configuración del mismo. Es recomendado agregar el archivo correspondiente (serverless\_ssm.yml) al .gitignore.
 
-*   El siguiente script configurado en el package.json del proyecto es el encargado de levantar de forma concurrente
+*   El script start configurado en el package.json del proyecto, es el encargado de levantar
     *   El plugin de serverless-offline
-    *   El plugin remark-lint para archivos .md
+    *   El plugin remark-lint para archivos .md (se aplica solo el --output para check and autoformat sin terminar el proceso y poder ejecutar el script de serverless)
 
 ```json
   "scripts": {
     "check": "remark . --quiet --frail",
     "format": "remark . --quiet --frail --output",
+    "format-md": "remark . --output",
     "serverless-offline": "sls offline start",
-    "start": "concurrently --kill-others \"npm run serverless-offline\" \"npm run format\""
+    "start": "npm run format-md && npm run serverless-offline"
   },
 ```
 
-*   Ejecutamos el proyecto desde terminal
+*   Ejecutamos la app desde terminal.
 
 ```git
+npm start
+```
+
+*   Si se presenta algún mensaje indicando qué el puerto 4000 ya está en uso, podemos terminar todos los procesos dependientes y volver a ejecutar la app
+
+```git
+npx kill-port 4000
 npm start
 ```
 
 <br>
 
 </details>
- <br>
+
+<br>
 
 ### 1.2) Configuración del proyecto desde cero [🔝](#índice-)
 
@@ -231,12 +240,6 @@ npm i mysql2 --save
 npm i pg-hstore --save
 ```
 
-*   Descargamos el plugin para la ejecución de scripts de forma concurrente ([concurrently](https://www.npmjs.com/package/concurrently))
-
-```git
-npm i concurrently
-```
-
 *   Configuraremos un formato estándar de archivos markdown para el proyecto a través de [remark-lint](https://github.com/remarkjs/remark-lint#example-check-markdown-on-the-api)
 
 ```git
@@ -262,8 +265,9 @@ npm install remark-lint-table-cell-padding --save-dev
   "scripts": {
     "check": "remark . --quiet --frail",
     "format": "remark . --quiet --frail --output",
+    "format-md": "remark . --output",
     "serverless-offline": "sls offline start",
-    "start": "concurrently --kill-others \"npm run serverless-offline\" \"npm run format\""
+    "start": "npm run format-md && npm run serverless-offline"
   },
 ```
 
@@ -299,7 +303,7 @@ npm install remark-lint-table-cell-padding --save-dev
 
 *   Las variables ssm utilizadas en el proyecto se mantienen para simplificar el proceso de configuración del mismo. Es recomendado agregar el archivo correspondiente (serverless\_ssm.yml) al .gitignore.
 
-*   El siguiente script configurado en el package.json del proyecto es el encargado de levantar de forma concurrente
+*   El siguiente script (start), configurado en el package.json del proyecto, es el encargado de ejecutar
     *   El plugin de serverless-offline
     *   El plugin remark-lint para archivos .md
 
@@ -307,9 +311,23 @@ npm install remark-lint-table-cell-padding --save-dev
   "scripts": {
     "check": "remark . --quiet --frail",
     "format": "remark . --quiet --frail --output",
+    "format-md": "remark . --output",
     "serverless-offline": "sls offline start",
-    "start": "concurrently --kill-others \"npm run serverless-offline\" \"npm run format\""
+    "start": "npm run format-md && npm run serverless-offline"
   },
+```
+
+*   Ejecutamos la app desde terminal.
+
+```git
+npm start
+```
+
+*   Si se presenta algún mensaje indicando qué el puerto 4000 ya está en uso, podemos terminar todos los procesos dependientes y volver a ejecutar la app
+
+```git
+npx kill-port 4000
+npm start
 ```
 
 <br>

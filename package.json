@@ -6,8 +6,9 @@
   "scripts": {
     "check": "remark . --quiet --frail",
     "format": "remark . --quiet --frail --output",
+    "format-md": "remark . --output",
     "serverless-offline": "sls offline start",
-    "start": "concurrently --kill-others \"npm run serverless-offline\" \"npm run format\""
+    "start": "npm run format-md && npm run serverless-offline"
   },
   "engines": {
     "node": ">=14.15.0"
