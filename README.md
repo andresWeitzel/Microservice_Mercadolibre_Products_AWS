@@ -98,7 +98,7 @@ npm i
     *   El plugin de serverless-offline
     *   El plugin remark-lint para archivos .md
 
-```git
+```json
   "scripts": {
     "check": "remark . --quiet --frail",
     "format": "remark . --quiet --frail --output",
@@ -189,7 +189,7 @@ npm install @aws-sdk/client-s3
 
 *   Agregamos los plugins de serverless al .yml
 
-```git
+```yml
 plugins:
   - serverless-esbuild
   - serverless-s3-local
@@ -247,9 +247,11 @@ npm install remark-lint-emphasis-marker remark-lint-strong-marker --save-dev
 
 *   Luego agregamos la configuración para los scripts desde el package.json
 
-```git
-"check": "remark . --quiet --frail",
-    "format-md": "remark . --quiet --frail --output",
+```json
+  "scripts": {
+    "check": "remark . --quiet --frail",
+    "format": "remark . --quiet --frail --output",
+  },
 ```
 
 *   En mi caso, quiero que se aplique un autoformato por cada ejecución, aplico concurrently, quedando
@@ -298,7 +300,7 @@ npm install remark-lint-emphasis-marker remark-lint-strong-marker --save-dev
     *   El plugin de serverless-offline
     *   El plugin remark-lint para archivos .md
 
-```git
+```json
   "scripts": {
     "check": "remark . --quiet --frail",
     "format": "remark . --quiet --frail --output",
