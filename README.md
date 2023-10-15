@@ -1,6 +1,7 @@
 # Microservice\_Mercadolibre\_Products\_AWS
 
-Microservicio para la gestión de productos, ejemplificando parte de la arquitectura de desarrollo de ML implementada con Typescript, Amazon S3, Systems Manager Parameter Store, Api-Gateway, Serverless-Framework, Lambda, Sequelize, Mysql, Amazon RDS, entre otros. Los servicios de aws se prueban en local. El código del proyecto y la documentación de este (menos doc técnica), ha sido desarrollado/a en inglés.
+Microservicio para la gestión de productos, ejemplificando parte de la arquitectura de desarrollo de ML implementada con Typescript, Amazon S3, Systems Manager Parameter Store, Api-Gateway, Serverless-Framework, Lambda, Sequelize, Mysql, Amazon RDS, entre otros. 
+Los servicios de aws se prueban en local. El código del proyecto y la documentación de este (menos doc técnica), ha sido desarrollado/a en inglés.
 
 *   [Repositorio base de datos](https://github.com/andresWeitzel/Microdb_MercadoLibre_Productos_Mysql)
 *   [Api Doc ML Productos](https://developers.mercadolibre.com.ar/es_ar/publica-productos)
