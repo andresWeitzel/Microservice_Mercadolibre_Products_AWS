@@ -2,6 +2,19 @@
   <img src="./doc/assets/img/Microservice_Mercadolibre_Products_AWS.png" > 
 </div>
 
+<div align="right">
+    <img width="25" height="25" src="./doc/assets/icons/devops/png/aws.png" />
+    <img width="25" height="25" src="./doc/assets/icons/aws/png/lambda.png" />
+    <img width="27" height="27" src="./doc/assets/icons/devops/png/postman.png" />
+    <img width="29" height="27" src="./doc/assets/icons/devops/png/git.png" />
+    <img width="28" height="27" src="./doc/assets/icons/aws/png/api-gateway.png" />
+    <img width="27" height="25" src="./doc/assets/icons/aws/png/parameter-store.png" />
+    <img width="27" height="27" src="./doc/assets/icons/backend/javascript-typescript/png/nodejs.png" />
+    <img width="27" height="27" src="./doc/assets/icons/backend/javascript-typescript/png/typescript.png" />
+    <img width="27" height="27" src="./doc/assets/icons/backend/javascript-typescript/png/sequelize.png" />
+    <img width="25" height="27" src="./doc/assets/icons/aws/png/rds.png" />
+</div>
+
 # Microservice\_Mercadolibre\_Products\_AWS
 
 Microservicio para la gestión de productos, ejemplificando parte de la arquitectura de desarrollo de ML implementada con Typescript, Amazon S3, Systems Manager Parameter Store, Api-Gateway, Serverless-Framework, Lambda, Sequelize, Mysql, Amazon RDS, entre otros. 
