@@ -1,3 +1,7 @@
+<div align = "center">
+  <img src="./doc/assets/img/Microservice_Mercadolibre_Products_AWS.png" > 
+</div>
+
 # Microservice\_Mercadolibre\_Products\_AWS
 
 Microservicio para la gestión de productos, ejemplificando parte de la arquitectura de desarrollo de ML implementada con Typescript, Amazon S3, Systems Manager Parameter Store, Api-Gateway, Serverless-Framework, Lambda, Sequelize, Mysql, Amazon RDS, entre otros. 
